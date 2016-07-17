@@ -1,0 +1,33 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/tv")
+@Styles.Render("~/Content/css")
+@RenderSection("scripts", required: false)
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+</head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/TV.TiskarnaVosahlo/Home/Home">@ViewBag.Title</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Users</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="jumbotron">
+                @RenderBody()
+            </div>
+        </div>
+    </body>
+</html>

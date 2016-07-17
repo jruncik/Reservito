@@ -1,0 +1,12 @@
+bin
+obj
+/packages/Antlr.3.4.1.9004
+/packages/EntityFramework.6.0.0
+/packages/Iesi.Collections.4.0.0.4000
+/packages/log4net.2.0.3
+/packages/NHibernate.4.0.2.4000
+/packages/Npgsql.2.2.3
+/packages/Npgsql.EntityFramework.2.2.3
+/packages/NUnit.2.6.3
+/packages
+*.suo
