@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TV.ModelImpl.DbModel
+namespace SR.ModelImpl.DbModel
 {
     public class DbRights
     {

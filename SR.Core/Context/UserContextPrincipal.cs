@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Security.Principal;
 
-namespace TV.Core.Context
+namespace SR.Core.Context
 {
     public class UserContextPrincipal : IPrincipal, IDisposable
     {

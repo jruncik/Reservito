@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace TV.CoreImpl
+namespace SR.CoreImpl
 {
     public abstract class DisposeChecker : IDisposable
     {

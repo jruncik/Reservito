@@ -1,4 +1,4 @@
-﻿namespace TV.Core.Log
+﻿namespace SR.Core.Log
 {
     public interface ILogMessageGenerator
     {

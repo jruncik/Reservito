@@ -1,10 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
-using TV.Core.Context;
-using TV.ModelImpl.Model;
-using TV.Tiskarna;
+using SR.Core.Context;
+using SR.ModelImpl.Model;
+using SR.Tiskarna;
 
-namespace TV.ModelImpl.Tests
+namespace SR.ModelImpl.Tests
 {
     [TestFixture]
     public class FinishingJobTests

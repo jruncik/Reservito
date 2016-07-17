@@ -87,16 +87,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SR.Core\SR.Core.csproj">
-      <Project>{00BC0114-1A43-48C4-94AF-2A513B6E9605}</Project>
-      <Name>TV.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SR.Model\SR.Model.csproj">
-      <Project>{c09b8b6f-df47-469c-a19c-8c2731f6c2c8}</Project>
-      <Name>TV.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="DbModel\Mapping\DbContactPerson.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -145,6 +135,16 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="DbModel\Mapping\TV.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SR.Core\SR.Core.csproj">
+      <Project>{00bc0114-1a43-48c4-94af-2a513b6e9605}</Project>
+      <Name>SR.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SR.Model\SR.Model.csproj">
+      <Project>{c09b8b6f-df47-469c-a19c-8c2731f6c2c8}</Project>
+      <Name>SR.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

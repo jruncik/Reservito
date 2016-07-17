@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using TV.Core;
+using SR.Core;
 
-namespace TV.Model
+namespace SR.Model
 {
     public interface IPaperType : IDbStorable
     {

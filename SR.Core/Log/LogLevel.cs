@@ -1,6 +1,6 @@
 using System;
 
-namespace TV.Core.Log
+namespace SR.Core.Log
 {
     [Flags]
     public enum LogLevel

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TV.ModelImpl.Model
+namespace SR.ModelImpl.Model
 {
     public class Organisation
     {

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using NHibernate;
-using TV.Core;
-using TV.Core.Context;
-using TV.Core.Rights;
-using TV.Core.UserManagement;
-using TV.Core.Users;
-using TV.CoreImpl.Users;
-using TV.ModelImpl.DbModel;
+using SR.Core;
+using SR.Core.Context;
+using SR.Core.Rights;
+using SR.Core.UserManagement;
+using SR.Core.Users;
+using SR.CoreImpl.Users;
+using SR.ModelImpl.DbModel;
 
-namespace TV.CoreImpl.Autentication
+namespace SR.CoreImpl.Autentication
 {
     internal class Autentication : IAutentication
     {

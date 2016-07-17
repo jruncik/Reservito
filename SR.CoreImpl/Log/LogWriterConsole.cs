@@ -1,7 +1,7 @@
 using System;
-using TV.Core.Log;
+using SR.Core.Log;
 
-namespace TV.CoreImpl.Log
+namespace SR.CoreImpl.Log
 {
     internal class LogWriterConsole : ILogWriter
     {

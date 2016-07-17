@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using NHibernate;
-using TV.Core;
-using TV.Core.Context;
-using TV.Core.Rights;
-using TV.Model;
-using TV.ModelImpl.DbModel;
+using SR.Core;
+using SR.Core.Context;
+using SR.Core.Rights;
+using SR.Model;
+using SR.ModelImpl.DbModel;
 
-namespace TV.ModelImpl.Model.PaperFormats
+namespace SR.ModelImpl.Model.PaperFormats
 {
     public class PaperFormats : IPaperFormats
     {

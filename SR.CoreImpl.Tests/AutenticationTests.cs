@@ -1,12 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
-using TV.Core.Context;
-using TV.Core.Rights;
-using TV.Core.UserManagement;
-using TV.CoreImpl.Autentication;
-using TV.Tiskarna;
+using SR.Core.Context;
+using SR.Core.Rights;
+using SR.Core.UserManagement;
+using SR.CoreImpl.Autentication;
+using SR.Tiskarna;
 
-namespace TV.CoreImpl.Tests
+namespace SR.CoreImpl.Tests
 {
     [TestFixture]
     public class AutenticationTests

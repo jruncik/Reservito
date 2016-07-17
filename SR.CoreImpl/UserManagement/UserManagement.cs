@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using NHibernate;
-using TV.Core.Context;
-using TV.Core.Rights;
-using TV.Core.UserManagement;
-using TV.Core.Users;
-using TV.CoreImpl.Users;
-using TV.ModelImpl.DbModel;
+using SR.Core.Context;
+using SR.Core.Rights;
+using SR.Core.UserManagement;
+using SR.Core.Users;
+using SR.CoreImpl.Users;
+using SR.ModelImpl.DbModel;
 
-namespace TV.CoreImpl.UserManagement
+namespace SR.CoreImpl.UserManagement
 {
     internal class UserManagement : IUserManagement
     {

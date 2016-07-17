@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace TV.Core
+namespace SR.Core
 {
     [DataContract]
     [Serializable]

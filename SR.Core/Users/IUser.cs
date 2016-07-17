@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TV.Core.Users
+namespace SR.Core.Users
 {
     public interface IUser : IDbStorable
     {

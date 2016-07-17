@@ -1,10 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
-using TV.Core.Context;
-using TV.Tiskarna;
-using TV.Core.Log;
+using SR.Core.Context;
+using SR.Core.Log;
+using SR.Tiskarna;
 
-namespace TV.CoreImpl.Tests
+namespace SR.CoreImpl.Tests
 {
     [TestFixture]
     public class LogLevelTest

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TV.Core.Log
+namespace SR.Core.Log
 {
     public class TimeLoger : DisposableBase
     {

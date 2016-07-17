@@ -1,15 +1,14 @@
-﻿using NHibernate;
-using NHibernate.Cfg;
-using TV.Core;
-using TV.Core.Context;
-using TV.Core.Log;
-using TV.Core.UserManagement;
-using TV.CoreImpl;
-using TV.CoreImpl.Log;
-using TV.Model;
-using TV.ModelImpl.Model.PaperFormats;
+﻿using NHibernate.Cfg;
+using SR.Core;
+using SR.Core.Context;
+using SR.Core.Log;
+using SR.Core.UserManagement;
+using SR.CoreImpl;
+using SR.CoreImpl.Log;
+using SR.Model;
+using SR.ModelImpl.Model.PaperFormats;
 
-namespace TV.Tiskarna
+namespace SR.Tiskarna
 {
     public class TiskarnaVosahlo : ContextSingleton<TiskarnaVosahlo>
     {

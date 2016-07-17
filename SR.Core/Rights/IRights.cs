@@ -1,4 +1,4 @@
-﻿namespace TV.Core.Rights
+﻿namespace SR.Core.Rights
 {
     public interface IRights
     {

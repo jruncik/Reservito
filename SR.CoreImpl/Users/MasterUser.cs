@@ -1,7 +1,7 @@
 ﻿using System;
-using TV.Core.Users;
+using SR.Core.Users;
 
-namespace TV.CoreImpl.Users
+namespace SR.CoreImpl.Users
 {
     internal class MasterUser : IUser
     {

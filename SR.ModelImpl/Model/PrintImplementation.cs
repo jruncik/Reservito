@@ -1,7 +1,7 @@
 ﻿using System;
-using TV.Model;
+using SR.Model;
 
-namespace TV.ModelImpl.Model
+namespace SR.ModelImpl.Model
 {
     public class PrintImplementation : IPrintImplementation
     {

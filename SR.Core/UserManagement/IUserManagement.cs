@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using TV.Core.Users;
+using SR.Core.Users;
 
-namespace TV.Core.UserManagement
+namespace SR.Core.UserManagement
 {
     public interface IUserManagement
     {

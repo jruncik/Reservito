@@ -1,6 +1,6 @@
 using System;
 
-namespace TV.Core.UserManagement
+namespace SR.Core.UserManagement
 {
     [Serializable]
     public class UserManagementException : TvException

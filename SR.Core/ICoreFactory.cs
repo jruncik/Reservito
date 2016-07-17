@@ -1,6 +1,6 @@
-﻿using TV.Core.UserManagement;
+﻿using SR.Core.UserManagement;
 
-namespace TV.Core
+namespace SR.Core
 {
     public interface ICoreFactory
     {

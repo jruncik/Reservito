@@ -1,8 +1,8 @@
 using NHibernate;
 using NHibernate.Cfg;
-using TV.Core.Log;
+using SR.Core.Log;
 
-namespace TV.Core.Context
+namespace SR.Core.Context
 {
     public class AppliactionContext : ContextSingleton<AppliactionContext>
     {

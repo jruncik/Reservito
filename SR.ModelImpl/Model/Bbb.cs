@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TV.Core.Context;
-using TV.ModelImpl.DbModel;
+using SR.Core.Context;
+using SR.ModelImpl.DbModel;
 
-namespace TV.ModelImpl.Model
+namespace SR.ModelImpl.Model
 {
     public class Bbb
     {

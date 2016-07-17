@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using NHibernate;
-using TV.Core.Context;
-using TV.Model;
-using TV.ModelImpl.DbModel;
+using SR.Core.Context;
+using SR.Model;
+using SR.ModelImpl.DbModel;
 
-namespace TV.ModelImpl.Model.PaperFormats
+namespace SR.ModelImpl.Model.PaperFormats
 {
     public class PaperFormat : IPaperFormat
     {

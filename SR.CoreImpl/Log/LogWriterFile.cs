@@ -2,15 +2,15 @@ using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
-using TV.Core.Log;
+using SR.Core.Log;
 
-namespace TV.CoreImpl.Log
+namespace SR.CoreImpl.Log
 {
     internal class LogWriterFile : ILogWriter
     {
         public LogWriterFile()
         {
-            _writer = File.CreateText(@"C:\TV.log");
+            _writer = File.CreateText(@"C:\SR.log");
 
             _fileWriter = new Thread(WriteMessageInternal);
         }

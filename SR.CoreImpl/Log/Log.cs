@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using TV.Core.Log;
+using SR.Core.Log;
 
-namespace TV.CoreImpl.Log
+namespace SR.CoreImpl.Log
 {
     public class Log : ILog
     {

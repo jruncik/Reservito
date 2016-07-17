@@ -79,16 +79,6 @@
     <Compile Include="Users\User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SR.Core\SR.Core.csproj">
-      <Project>{00bc0114-1a43-48c4-94af-2a513b6e9605}</Project>
-      <Name>TV.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SR.ModelImpl\SR.ModelImpl.csproj">
-      <Project>{98ae7034-9395-41b8-b57c-46b6eb33937c}</Project>
-      <Name>TV.ModelImpl</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -97,6 +87,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SR.Core\SR.Core.csproj">
+      <Project>{00bc0114-1a43-48c4-94af-2a513b6e9605}</Project>
+      <Name>SR.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SR.ModelImpl\SR.ModelImpl.csproj">
+      <Project>{98ae7034-9395-41b8-b57c-46b6eb33937c}</Project>
+      <Name>SR.ModelImpl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

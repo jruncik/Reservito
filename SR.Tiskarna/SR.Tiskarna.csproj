@@ -50,26 +50,26 @@
     <Compile Include="TiskarnaVosahlo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SR.CoreImpl\SR.CoreImpl.csproj">
       <Project>{24321645-b63d-4de9-8cf0-6aabca72d0bb}</Project>
-      <Name>TV.CoreImpl</Name>
+      <Name>SR.CoreImpl</Name>
     </ProjectReference>
     <ProjectReference Include="..\SR.Core\SR.Core.csproj">
       <Project>{00bc0114-1a43-48c4-94af-2a513b6e9605}</Project>
-      <Name>TV.Core</Name>
+      <Name>SR.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SR.ModelImpl\SR.ModelImpl.csproj">
       <Project>{98ae7034-9395-41b8-b57c-46b6eb33937c}</Project>
-      <Name>TV.ModelImpl</Name>
+      <Name>SR.ModelImpl</Name>
     </ProjectReference>
     <ProjectReference Include="..\SR.Model\SR.Model.csproj">
       <Project>{c09b8b6f-df47-469c-a19c-8c2731f6c2c8}</Project>
-      <Name>TV.Model</Name>
+      <Name>SR.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

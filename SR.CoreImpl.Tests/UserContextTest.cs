@@ -1,9 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
-using TV.Core.Context;
-using TV.Tiskarna;
+using SR.Core.Context;
+using SR.Tiskarna;
 
-namespace TV.CoreImpl.Tests
+namespace SR.CoreImpl.Tests
 {
 
     [TestFixture]

@@ -1,7 +1,7 @@
 ﻿using System;
-using TV.Core;
+using SR.Core;
 
-namespace TV.CoreImpl.Autentication
+namespace SR.CoreImpl.Autentication
 {
     [Serializable]
     public class AutenticationException : TvException

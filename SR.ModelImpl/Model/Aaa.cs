@@ -1,9 +1,9 @@
 ﻿using NHibernate;
 using System;
-using TV.Core.Context;
-using TV.ModelImpl.DbModel;
+using SR.Core.Context;
+using SR.ModelImpl.DbModel;
 
-namespace TV.ModelImpl.Model
+namespace SR.ModelImpl.Model
 {
     public class Aaa
     {

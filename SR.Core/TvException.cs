@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TV.Core
+namespace SR.Core
 {
     [Serializable]
     public class TvException : Exception

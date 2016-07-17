@@ -80,29 +80,29 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SR.CoreImpl\SR.CoreImpl.csproj">
       <Project>{24321645-b63d-4de9-8cf0-6aabca72d0bb}</Project>
-      <Name>TV.CoreImpl</Name>
+      <Name>SR.CoreImpl</Name>
     </ProjectReference>
     <ProjectReference Include="..\SR.Core\SR.Core.csproj">
       <Project>{00bc0114-1a43-48c4-94af-2a513b6e9605}</Project>
-      <Name>TV.Core</Name>
+      <Name>SR.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SR.ModelImpl\SR.ModelImpl.csproj">
       <Project>{98ae7034-9395-41b8-b57c-46b6eb33937c}</Project>
-      <Name>TV.ModelImpl</Name>
+      <Name>SR.ModelImpl</Name>
     </ProjectReference>
     <ProjectReference Include="..\SR.Model\SR.Model.csproj">
-      <Project>{C09B8B6F-DF47-469C-A19C-8C2731F6C2C8}</Project>
-      <Name>TV.Model</Name>
+      <Project>{c09b8b6f-df47-469c-a19c-8c2731f6c2c8}</Project>
+      <Name>SR.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\SR.Tiskarna\SR.Tiskarna.csproj">
       <Project>{8fd923c7-fd64-4989-a8ab-eb426753235b}</Project>
-      <Name>TV.Tiskarna</Name>
+      <Name>SR.Tiskarna</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

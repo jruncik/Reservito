@@ -1,7 +1,7 @@
 ﻿using System;
-using TV.Core;
+using SR.Core;
 
-namespace TV.Model
+namespace SR.Model
 {
     public interface IContactPerson : IDbStorable
     {

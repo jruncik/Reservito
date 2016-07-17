@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TV.ModelImpl.Model
+namespace SR.ModelImpl.Model
 {
     [Flags]
     public enum FinishingJobFlag : UInt32

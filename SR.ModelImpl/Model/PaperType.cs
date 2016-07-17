@@ -1,11 +1,11 @@
 ﻿using NHibernate;
 using System;
 using System.Drawing;
-using TV.Core.Context;
-using TV.Model;
-using TV.ModelImpl.DbModel;
+using SR.Core.Context;
+using SR.Model;
+using SR.ModelImpl.DbModel;
 
-namespace TV.ModelImpl.Model
+namespace SR.ModelImpl.Model
 {
     public class PaperType : IPaperType
     {

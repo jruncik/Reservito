@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TV.Model
+namespace SR.Model
 {
     public interface IPaperFormats
     {

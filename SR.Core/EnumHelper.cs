@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace TV.Core
+namespace SR.Core
 {
     public class EnumHelper<T> : IEnumerable<T> where T : struct
     {

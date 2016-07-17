@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.Security.Principal;
 using NHibernate;
 using NHibernate.Stat;
-using TV.Core.Rights;
-using TV.Core.Users;
+using SR.Core.Rights;
+using SR.Core.Users;
 
-namespace TV.Core.Context
+namespace SR.Core.Context
 {
     public class UserContextData : IPrincipal, IIdentity
     {

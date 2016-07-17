@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using TV.Core;
-using TV.Core.Context;
-using TV.Core.Rights;
-using TV.Model;
-using TV.Tiskarna;
+using SR.Core;
+using SR.Core.Context;
+using SR.Core.Rights;
+using SR.Model;
+using SR.Tiskarna;
 
-namespace TV.CoreImpl.Tests
+namespace SR.CoreImpl.Tests
 {
     [TestFixture]
     public class TiskarnaVosahloPaperFormatsTests

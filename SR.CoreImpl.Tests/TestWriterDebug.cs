@@ -1,6 +1,6 @@
-using TV.Core.Log;
+using SR.Core.Log;
 
-namespace TV.CoreImpl.Tests
+namespace SR.CoreImpl.Tests
 {
     public class LogWriterTest : ILogWriter
     {

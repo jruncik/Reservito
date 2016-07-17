@@ -1,6 +1,6 @@
-using TV.Core.Rights;
+using SR.Core.Rights;
 
-namespace TV.CoreImpl.Rights
+namespace SR.CoreImpl.Rights
 {
     internal class GuestRights : IRights
     {

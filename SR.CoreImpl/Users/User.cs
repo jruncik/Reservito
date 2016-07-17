@@ -1,11 +1,11 @@
 ﻿using System;
 using NHibernate;
-using TV.Core;
-using TV.Core.Context;
-using TV.Core.Users;
-using TV.ModelImpl.DbModel;
+using SR.Core;
+using SR.Core.Context;
+using SR.Core.Users;
+using SR.ModelImpl.DbModel;
 
-namespace TV.CoreImpl.Users
+namespace SR.CoreImpl.Users
 {
     internal class User : IUser
     {

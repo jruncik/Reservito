@@ -1,12 +1,12 @@
 ﻿using NHibernate;
 using System;
 using System.Drawing;
-using TV.Core.Context;
-using TV.Model;
-using TV.ModelImpl.DbModel;
-using TV.ModelImpl.Model.PaperFormats;
+using SR.Core.Context;
+using SR.Model;
+using SR.ModelImpl.DbModel;
+using SR.ModelImpl.Model.PaperFormats;
 
-namespace TV.ModelImpl.Model
+namespace SR.ModelImpl.Model
 {
     public class Order : IOrder
     {

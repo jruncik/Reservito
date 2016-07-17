@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace TV.Core
+namespace SR.Core
 {
     public abstract class DisposableBase : IDisposable
     {

@@ -209,10 +209,6 @@
       <Project>{c09b8b6f-df47-469c-a19c-8c2731f6c2c8}</Project>
       <Name>SR.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SR.Tiskarna\SR.Tiskarna.csproj">
-      <Project>{8fd923c7-fd64-4989-a8ab-eb426753235b}</Project>
-      <Name>SR.Tiskarna</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource.resx">

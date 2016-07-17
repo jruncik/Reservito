@@ -1,7 +1,7 @@
-﻿using TV.Core;
-using TV.Core.UserManagement;
+﻿using SR.Core;
+using SR.Core.UserManagement;
 
-namespace TV.CoreImpl
+namespace SR.CoreImpl
 {
     public class CoreFactory : ICoreFactory
     {

@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
 using NUnit.Framework;
-using TV.ModelImpl.Model;
-using TV.Tiskarna;
-using TV.Core.Context;
+using SR.ModelImpl.Model;
+using SR.Core.Context;
+using SR.Tiskarna;
 
-namespace TV.ModelImpl.Tests
+namespace SR.ModelImpl.Tests
 {
     [TestFixture]
     public class PaperTypeTests

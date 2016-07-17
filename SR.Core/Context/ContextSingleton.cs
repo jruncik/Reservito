@@ -1,4 +1,4 @@
-﻿namespace TV.Core.Context
+﻿namespace SR.Core.Context
 {
     public abstract class ContextSingleton<T> where T : class
     {

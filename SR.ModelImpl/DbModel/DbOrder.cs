@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace TV.ModelImpl.DbModel
+namespace SR.ModelImpl.DbModel
 {
     public class DbOrder
     {
@@ -10,7 +10,7 @@ namespace TV.ModelImpl.DbModel
         public virtual string OrderType { get; set; } = String.Empty;
         public virtual DateTime OrderTime { get; set; } = DateTime.MinValue;
         public virtual DateTime FinishTime { get; set; } = DateTime.MinValue;
-        public virtual int Priority { get; set; } = (int)TV.Model.Priority.Normal;
+        public virtual int Priority { get; set; } = (int)SR.Model.Priority.Normal;
         public virtual DbPaperFormat Format { get; set; }
         public virtual int PageCount { get; set; }
         public virtual int Count { get; set; }

@@ -1,6 +1,6 @@
 using System;
 
-namespace TV.Core.Rights
+namespace SR.Core.Rights
 {
     [Serializable]
     public class RightsException : TvException

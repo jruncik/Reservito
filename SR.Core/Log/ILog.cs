@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TV.Core.Log
+namespace SR.Core.Log
 {
     public interface ILog
     {

@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
 using System;
-using TV.Core.Context;
-using TV.ModelImpl.Model;
-using TV.Tiskarna;
+using SR.Core.Context;
+using SR.ModelImpl.Model;
+using SR.Tiskarna;
 
-namespace TV.ModelImpl.Tests
+namespace SR.ModelImpl.Tests
 {
     [TestFixture]
     public class OrderTest

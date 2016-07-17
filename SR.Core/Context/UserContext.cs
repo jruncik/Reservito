@@ -5,10 +5,10 @@ using System.Security.Principal;
 using System.Threading;
 using System.Web;
 using NHibernate;
-using TV.Core.Rights;
-using TV.Core.Users;
+using SR.Core.Rights;
+using SR.Core.Users;
 
-namespace TV.Core.Context
+namespace SR.Core.Context
 {
     public class UserContext : ContextSingleton<UserContext>
     {
