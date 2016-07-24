@@ -67,12 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AaaBbbTest.cs" />
     <Compile Include="ContactPersoneTests.cs" />
-    <Compile Include="FinishingJobTests.cs" />
-    <Compile Include="OrderTest.cs" />
-    <Compile Include="PaperTypeTests.cs" />
-    <Compile Include="ProofsheetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

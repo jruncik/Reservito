@@ -15,11 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR.Model", "SR.Model\SR.Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR.ModelImpl.Tests", "SR.ModelImpl.Tests\SR.ModelImpl.Tests.csproj", "{1C346259-5A9E-43A6-8F97-C8C8440ABF92}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5AD34C0C-3F91-4FEB-8AC9-B94FDC200094}"
-	ProjectSection(SolutionItems) = preProject
-		SQL\SR.sql = SQL\SR.sql
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR.Tiskarna", "SR.Tiskarna\SR.Tiskarna.csproj", "{8FD923C7-FD64-4989-A8AB-EB426753235B}"
 EndProject
 Global

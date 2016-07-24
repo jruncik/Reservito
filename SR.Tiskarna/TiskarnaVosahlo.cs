@@ -6,7 +6,6 @@ using SR.Core.UserManagement;
 using SR.CoreImpl;
 using SR.CoreImpl.Log;
 using SR.Model;
-using SR.ModelImpl.Model.PaperFormats;
 
 namespace SR.Tiskarna
 {
@@ -21,8 +20,6 @@ namespace SR.Tiskarna
 
             _userManagement = _coreFactory.CreateUserManagement();
             _autentication = _coreFactory.CreateAutentication(_userManagement);
-
-            _paperFormats = new PaperFormats();
         }
 
         private static void InitApplicationContext()
@@ -50,13 +47,7 @@ namespace SR.Tiskarna
             get { return Instance._userManagement; }
         }
 
-        public static IPaperFormats PaperFormats
-        {
-            get { return Instance._paperFormats; }
-        }
-
-        private readonly ICoreFactory _coreFactory;
-        private readonly IPaperFormats _paperFormats;
+       private readonly ICoreFactory _coreFactory;
         private readonly IAutentication _autentication;
         private readonly IUserManagement _userManagement;
     }
