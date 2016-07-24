@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics;
 using System.Security.Principal;
-using NHibernate;
-using NHibernate.Stat;
+
+using SR.Core.DbAccess;
 using SR.Core.Rights;
 using SR.Core.Users;
 
@@ -12,10 +12,12 @@ namespace SR.Core.Context
     {
         public UserContextData(SessionId sessionId, IUser currentUser, IRights rights)
         {
-            _currentUser = currentUser;
+            _dbOperations = AppliactionContext.DbOperationsFactory.CreateDbOperations();
+
             _sessionId = sessionId;
+            _currentUser = currentUser;
             _rights = rights;
-            _sessionFactory = AppliactionContext.Configuartion.BuildSessionFactory();
+
             IsAuthenticated = true;
         }
 
@@ -63,9 +65,9 @@ namespace SR.Core.Context
             }
         }
 
-        public ISessionFactory SessionFactory
+        public IDbOperations DbOperations
         {
-            get { return _sessionFactory; }
+            get { return _dbOperations; }
         }
 
         public bool IsAuthenticated { get; set; }
@@ -74,11 +76,9 @@ namespace SR.Core.Context
         {
             Debug.Assert(_originalPrincipal == null, "Context has to be detached from thread");
 
-            _sessionFactory.Close();
-            _sessionFactory.Dispose();
-
             _sessionId = SessionId.Empty;
             IsAuthenticated = false;
+
             _originalPrincipal = null;
             _currentUser = null;
             _rights = null;
@@ -90,10 +90,11 @@ namespace SR.Core.Context
             set { _originalPrincipal = value; }
         }
 
+        private readonly IDbOperations _dbOperations;
+
         private IUser _currentUser;
         private IRights _rights;
         private SessionId _sessionId;
         private IPrincipal _originalPrincipal;
-        private ISessionFactory _sessionFactory;
     }
 }

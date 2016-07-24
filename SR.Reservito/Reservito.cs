@@ -1,16 +1,20 @@
-﻿using NHibernate.Cfg;
+﻿using NHibernate;
+using NHibernate.Cfg;
+
 using SR.Core;
 using SR.Core.Context;
+using SR.Core.DbAccess;
 using SR.Core.Log;
 using SR.Core.UserManagement;
 using SR.CoreImpl;
 using SR.CoreImpl.Log;
+using SR.ModelImpl.DbAccess;
 
-namespace SR.Tiskarna
+namespace SR.Reservito
 {
-    public class TiskarnaVosahlo : ContextSingleton<TiskarnaVosahlo>
+    public class ReservitoApp : ContextSingleton<ReservitoApp>
     {
-        public TiskarnaVosahlo()
+        public ReservitoApp()
         {
             InitApplicationContext();
             InitUserContext();
@@ -28,7 +32,11 @@ namespace SR.Tiskarna
             Configuration configuartion = new Configuration();
             configuartion.Configure();
 
-            new AppliactionContext(log, configuartion);
+            ISessionFactory sessionFactory = configuartion.BuildSessionFactory();
+
+            IDbOperationsFactory dbOperationsFactory = new DbOperationsFactory(sessionFactory);
+
+            new AppliactionContext(log, dbOperationsFactory);
         }
 
         private static void InitUserContext()
@@ -46,7 +54,7 @@ namespace SR.Tiskarna
             get { return Instance._userManagement; }
         }
 
-       private readonly ICoreFactory _coreFactory;
+        private readonly ICoreFactory _coreFactory;
         private readonly IAutentication _autentication;
         private readonly IUserManagement _userManagement;
     }

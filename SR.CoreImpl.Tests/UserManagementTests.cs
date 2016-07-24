@@ -1,10 +1,13 @@
 ﻿using System;
+
 using NUnit.Framework;
+
 using SR.Core.Context;
 using SR.Core.Rights;
 using SR.Core.UserManagement;
 using SR.Core.Users;
-using SR.Tiskarna;
+
+using SR.Reservito;
 
 namespace SR.CoreImpl.Tests
 {
@@ -14,27 +17,27 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CreateNewUserEmptyName()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             Assert.That(() => userManagement.CreateNewUser("", PASSWORD), Throws.TypeOf<UserManagementException>());
         }
 
         [Test]
         public void CreateNewUserEmptyPassword()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             Assert.That(() => userManagement.CreateNewUser(USERNAME, ""), Throws.TypeOf<UserManagementException>());
         }
 
         [Test]
         public void CreateNewUserAlreadyExist()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
 
             try
@@ -50,8 +53,8 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CreateNewUserWithoutRights()
         {
-            TiskarnaVosahlo.Autentication.LogIn(GUEST_USERNAME, GUEST_PASSWORD);
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            ReservitoApp.Autentication.LogIn(GUEST_USERNAME, GUEST_PASSWORD);
+            IUserManagement userManagement = ReservitoApp.UserManagement;
 
             Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD), Throws.TypeOf<RightsException>());
         }
@@ -59,9 +62,9 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CreateNewUser()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
 
             Assert.AreEqual(newUser.Username, USERNAME);
@@ -73,9 +76,9 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void SaveUser()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
 
             Assert.True(userManagement.Users.Contains(newUser));
@@ -86,9 +89,9 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void UpdateUserFromDb()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
 
             newUser.Username = NEW_USERNAME;
@@ -106,9 +109,9 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void UpdateCancleUser()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
 
             newUser.Username = NEW_USERNAME;
@@ -125,9 +128,9 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void DeleteUser()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
-            IUserManagement userManagement = TiskarnaVosahlo.UserManagement;
+            IUserManagement userManagement = ReservitoApp.UserManagement;
             IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
 
             userManagement.DeleteUser(newUser);
@@ -138,7 +141,7 @@ namespace SR.CoreImpl.Tests
         [SetUp]
         public void TestInit()
         {
-            TiskarnaVosahlo.UserManagement.DeleteAllUsers();
+            ReservitoApp.UserManagement.DeleteAllUsers();
             UserContext.Logout();
         }
 
@@ -146,19 +149,19 @@ namespace SR.CoreImpl.Tests
         public void TestCleanup()
         {
             UserContext.Logout();
-            TiskarnaVosahlo.UserManagement.DeleteAllUsers();
+            ReservitoApp.UserManagement.DeleteAllUsers();
         }
 
         [OneTimeSetUpAttribute]
         public void AllTestsInit()
         {
-            new TiskarnaVosahlo();
+            new ReservitoApp();
         }
 
         [OneTimeTearDownAttribute]
         public void AllTestCleanup()
         {
-            TiskarnaVosahlo.UserManagement.DeleteAllUsers();
+            ReservitoApp.UserManagement.DeleteAllUsers();
         }
 
         #endregion

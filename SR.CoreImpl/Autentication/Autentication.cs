@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using NHibernate;
+
 using SR.Core;
 using SR.Core.Context;
+using SR.Core.DbAccess;
 using SR.Core.Rights;
 using SR.Core.UserManagement;
 using SR.Core.Users;
 using SR.CoreImpl.Users;
+
 using SR.ModelImpl.DbModel;
 
 namespace SR.CoreImpl.Autentication
@@ -89,19 +91,18 @@ namespace SR.CoreImpl.Autentication
                 return Rights.Rights.Guest;
             }
 
-            using (ISession session = AppliactionContext.SessionFactory.OpenSession())
+            string query = "from " + typeof(DbRights) + " r where r.FkUser = :UserId";
+            QueryParams queryParams = new QueryParams(new QueryParam("UserId", user.Id));
+
+            IList<DbRights> userRights = AppliactionContext.DbOperations.QueryDb<DbRights>(query, queryParams);
+
+            if (userRights.Count != 1)
             {
-                IQuery query = session.CreateQuery("from " + typeof(DbRights) + " r where r.FkUser = :UserId");
-                IList<DbRights> userRights = query.SetParameter("UserId", user.Id).List<DbRights>();
-
-                if (userRights.Count != 1)
-                {
-                    AppliactionContext.Log.Error(this, String.Format("Rights for User '{0}' wasn't found.", user.Username));
-                    return Rights.Rights.Empty;
-                }
-
-                return new Rights.Rights((Roles)userRights[0].Rights);
+                AppliactionContext.Log.Error(this, String.Format("Rights for User '{0}' wasn't found.", user.Username));
+                return Rights.Rights.Empty;
             }
+
+            return new Rights.Rights((Roles)userRights[0].Rights);
         }
 
         private readonly IUserManagement _userManagement;

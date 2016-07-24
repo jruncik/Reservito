@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR.Model", "SR.Model\SR.Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR.ModelImpl.Tests", "SR.ModelImpl.Tests\SR.ModelImpl.Tests.csproj", "{1C346259-5A9E-43A6-8F97-C8C8440ABF92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR.Tiskarna", "SR.Tiskarna\SR.Tiskarna.csproj", "{8FD923C7-FD64-4989-A8AB-EB426753235B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR.Reservito", "SR.Reservito\SR.Reservito.csproj", "{535AE976-B4DB-4024-AB69-EAD2F6151C74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,12 +60,12 @@ Global
 		{1C346259-5A9E-43A6-8F97-C8C8440ABF92}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C346259-5A9E-43A6-8F97-C8C8440ABF92}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{1C346259-5A9E-43A6-8F97-C8C8440ABF92}.Test|Any CPU.Build.0 = Release|Any CPU
-		{8FD923C7-FD64-4989-A8AB-EB426753235B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FD923C7-FD64-4989-A8AB-EB426753235B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FD923C7-FD64-4989-A8AB-EB426753235B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FD923C7-FD64-4989-A8AB-EB426753235B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8FD923C7-FD64-4989-A8AB-EB426753235B}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{8FD923C7-FD64-4989-A8AB-EB426753235B}.Test|Any CPU.Build.0 = Release|Any CPU
+		{535AE976-B4DB-4024-AB69-EAD2F6151C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{535AE976-B4DB-4024-AB69-EAD2F6151C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{535AE976-B4DB-4024-AB69-EAD2F6151C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{535AE976-B4DB-4024-AB69-EAD2F6151C74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{535AE976-B4DB-4024-AB69-EAD2F6151C74}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{535AE976-B4DB-4024-AB69-EAD2F6151C74}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
-using NHibernate;
+
+using SR.Core.DbAccess;
 using SR.Core.Rights;
 using SR.Core.Users;
 
@@ -51,7 +51,7 @@ namespace SR.Core.Context
             }
         }
 
-        public static ISessionFactory SessionFactory
+        public static IDbOperations DbOperations
         {
             get
             {
@@ -61,9 +61,10 @@ namespace SR.Core.Context
                     AppliactionContext.Log.Error(null, "Calling user context functionality without any logged user.");
                     return null;
                 }
-                return context.SessionFactory;
+                return context.DbOperations;
             }
         }
+
 
         public static SessionId SessionId
         {

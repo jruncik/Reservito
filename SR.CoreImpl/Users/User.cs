@@ -1,5 +1,4 @@
 ﻿using System;
-using NHibernate;
 using SR.Core;
 using SR.Core.Context;
 using SR.Core.Users;
@@ -65,82 +64,28 @@ namespace SR.CoreImpl.Users
 
         public void Save()
         {
-            using (AppliactionContext.Log.LogTime(this, String.Format("Save user '{0}'.", Username)))
+            using (AppliactionContext.Log.LogTime(this, $"Save user '{Username}'."))
             {
-                using (ISession session = AppliactionContext.SessionFactory.OpenSession())
-                {
-                    using (ITransaction tx = session.BeginTransaction())
-                    {
-                        try
-                        {
-                            if (Id == Guid.Empty)
-                            {
-                                session.Save(_dbUser);
-                            }
-                            else
-                            {
-                                session.Update(_dbUser);
-                            }
-                            tx.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            AppliactionContext.Log.Critical(this, ex.Message);
-                            tx.Rollback();
-                            throw ex;
-                        }
-                    }
-                }
+                AppliactionContext.DbOperations.Save(_dbUser);
             }
         }
 
         public void Reload()
         {
-            using (AppliactionContext.Log.LogTime(this, String.Format("Reload user '{0}'.", Username)))
+            using (AppliactionContext.Log.LogTime(this, $"Reload user '{Username}'."))
             {
-                using (ISession session = AppliactionContext.SessionFactory.OpenSession())
-                {
-                    using (ITransaction tx = session.BeginTransaction())
-                    {
-                        try
-                        {
-                            DbUser reloadedUser = session.Load<DbUser>(_dbUser.Id);
+                DbUser reloadedUser = AppliactionContext.DbOperations.Reload<DbUser>(_dbUser.Id);
 
-                            _dbUser.Password = reloadedUser.Password;
-                            _dbUser.Username = reloadedUser.Username;
-                        }
-                        catch (Exception ex)
-                        {
-                            AppliactionContext.Log.Critical(this, ex.Message);
-                            tx.Rollback();
-                            throw ex;
-                        }
-                    }
-                }
+                _dbUser.Password = reloadedUser.Password;
+                _dbUser.Username = reloadedUser.Username;
             }
         }
 
         public void Delete()
         {
-            using (AppliactionContext.Log.LogTime(this, String.Format("Delete user '{0}'.", Username)))
+            using (AppliactionContext.Log.LogTime(this, $"Delete user '{Username}'."))
             {
-                using (ISession session = AppliactionContext.SessionFactory.OpenSession())
-                {
-                    using (ITransaction tx = session.BeginTransaction())
-                    {
-                        try
-                        {
-                            session.Delete(_dbUser);
-                            tx.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            AppliactionContext.Log.Critical(this, ex.Message);
-                            tx.Rollback();
-                            throw ex;
-                        }
-                    }
-                }
+                AppliactionContext.DbOperations.Delete(_dbUser);
             }
         }
 

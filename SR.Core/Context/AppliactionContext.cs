@@ -1,5 +1,4 @@
-using NHibernate;
-using NHibernate.Cfg;
+using SR.Core.DbAccess;
 using SR.Core.Log;
 
 namespace SR.Core.Context
@@ -11,25 +10,27 @@ namespace SR.Core.Context
             get { return Instance._log; }
         }
 
-        public static Configuration Configuartion
+        public static IDbOperations DbOperations
         {
-            get { return Instance._configuartion; }
+            get { return Instance._dbOperations; }
         }
 
-        public static ISessionFactory SessionFactory
+        public static IDbOperationsFactory DbOperationsFactory
         {
-            get { return Instance._sessionFactory; }
+            get { return Instance._dbOperationsFactory; }
         }
 
-        public AppliactionContext(ILog log, Configuration configuartion)
+        public AppliactionContext(ILog log, IDbOperationsFactory dbOperationsFactory)
         {
             _log = log;
-            _configuartion = configuartion;
-            _sessionFactory = _configuartion.BuildSessionFactory();
+
+            _dbOperationsFactory = dbOperationsFactory;
+
+            _dbOperations = _dbOperationsFactory.CreateDbOperations();
         }
 
         private readonly ILog _log;
-        private Configuration _configuartion;
-        private ISessionFactory _sessionFactory;
+        private readonly IDbOperations _dbOperations;
+        private readonly IDbOperationsFactory _dbOperationsFactory;
     }
 }

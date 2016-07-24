@@ -1,7 +1,9 @@
 ﻿using System;
+
 using NUnit.Framework;
+
 using SR.Core.Context;
-using SR.Tiskarna;
+using SR.Reservito;
 
 namespace SR.CoreImpl.Tests
 {
@@ -12,7 +14,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CreateContext()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
             Assert.AreEqual(MASTER_USERNAME, UserContext.User.Username);
             Assert.AreEqual(MASTER_PASSWORD, UserContext.User.Password);
@@ -23,7 +25,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CloseContext()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
 
             UserContext.Logout();
 
@@ -36,7 +38,7 @@ namespace SR.CoreImpl.Tests
         [SetUp]
         public void TestInit()
         {
-            new TiskarnaVosahlo();
+            new ReservitoApp();
         }
 
         [TearDown]

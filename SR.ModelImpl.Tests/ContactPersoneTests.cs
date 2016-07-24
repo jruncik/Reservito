@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
+
 using SR.Core.Context;
 using SR.ModelImpl.Model;
-using SR.Tiskarna;
+
+using SR.Reservito;
 
 namespace SR.ModelImpl.Tests
 {
@@ -26,7 +28,7 @@ namespace SR.ModelImpl.Tests
         [SetUp]
         public void TestInit()
         {
-            TiskarnaVosahlo.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
         }
 
         [TearDown]
@@ -38,7 +40,7 @@ namespace SR.ModelImpl.Tests
         [OneTimeSetUpAttribute]
         public void AllTestsInit()
         {
-            new TiskarnaVosahlo();
+            new ReservitoApp();
         }
 
         [OneTimeTearDownAttribute]

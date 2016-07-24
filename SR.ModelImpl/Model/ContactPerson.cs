@@ -1,5 +1,5 @@
 using System;
-using NHibernate;
+
 using SR.Core.Context;
 using SR.Model;
 using SR.ModelImpl.DbModel;
@@ -20,30 +20,36 @@ namespace SR.ModelImpl.Model
 
         public virtual Guid Id
         {
-            get {
+            get
+            {
                 return _dbContactPerson.Id;
             }
-            set {
+            set
+            {
                 _dbContactPerson.Id = value;
             }
         }
 
         public virtual string FirstName
         {
-            get {
+            get
+            {
                 return _dbContactPerson.FirstName;
             }
-            set {
+            set
+            {
                 _dbContactPerson.FirstName = value;
             }
         }
 
         public virtual string LastName
         {
-            get {
+            get
+            {
                 return _dbContactPerson.LastName;
             }
-            set {
+            set
+            {
                 _dbContactPerson.LastName = value;
             }
 
@@ -51,105 +57,62 @@ namespace SR.ModelImpl.Model
 
         public virtual string PhoneNumber
         {
-            get {
+            get
+            {
                 return _dbContactPerson.PhoneNumber;
             }
-            set {
+            set
+            {
                 _dbContactPerson.PhoneNumber = value;
             }
         }
 
         public virtual string Email
         {
-            get {
+            get
+            {
                 return _dbContactPerson.Email;
             }
-            set {
+            set
+            {
                 _dbContactPerson.Email = value;
             }
         }
 
         public void Save()
         {
-            using (ISession session = UserContext.SessionFactory.OpenSession())
+            using (AppliactionContext.Log.LogTime(this, $"Save contact person '{FirstName} {LastName}'."))
             {
-                using (ITransaction tx = session.BeginTransaction())
-                {
-                    try
-                    {
-                        using (AppliactionContext.Log.LogTime(this, String.Format("Save contact persone '{0} {1}'.", FirstName, LastName)))
-                        {
-                            session.SaveOrUpdate(_dbContactPerson);
-                            tx.Commit();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        AppliactionContext.Log.Critical(this, ex.Message);
-                        tx.Rollback();
-                        throw ex;
-                    }
-                }
+                UserContext.DbOperations.Save(_dbContactPerson);
             }
         }
 
         public void Reload()
         {
-            using (ISession session = UserContext.SessionFactory.OpenSession())
+            using (AppliactionContext.Log.LogTime(this, $"Reload contact person '{FirstName} {LastName}'."))
             {
-                using (ITransaction tx = session.BeginTransaction())
-                {
-                    try
-                    {
-                        using (AppliactionContext.Log.LogTime(this, String.Format("Reload contact person '{0} {1}'.", FirstName, LastName)))
-                        {
-                            DbContactPerson reloadedContactPerson = session.Load<DbContactPerson>(_dbContactPerson.Id);
+                DbContactPerson reloadedContactPerson = UserContext.DbOperations.Reload<DbContactPerson>(_dbContactPerson.Id);
 
-                            _dbContactPerson.FirstName = reloadedContactPerson.FirstName;
-                            _dbContactPerson.LastName = reloadedContactPerson.LastName;
-                            _dbContactPerson.PhoneNumber = reloadedContactPerson.PhoneNumber;
-                            _dbContactPerson.Email = reloadedContactPerson.Email;
+                _dbContactPerson.FirstName = reloadedContactPerson.FirstName;
+                _dbContactPerson.LastName = reloadedContactPerson.LastName;
+                _dbContactPerson.PhoneNumber = reloadedContactPerson.PhoneNumber;
+                _dbContactPerson.Email = reloadedContactPerson.Email;
 
-                            tx.Commit();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        AppliactionContext.Log.Critical(this, ex.Message);
-                        tx.Rollback();
-                        throw ex;
-                    }
-                }
             }
         }
 
         public void Delete()
         {
-            using (ISession session = UserContext.SessionFactory.OpenSession())
+            using (AppliactionContext.Log.LogTime(this, $"Delete contact person '{FirstName} {LastName}'."))
             {
-                using (ITransaction tx = session.BeginTransaction())
-                {
-                    try
-                    {
-                        using (AppliactionContext.Log.LogTime(this, String.Format("Delete contact person '{0} {1}'.", FirstName, LastName)))
-                        {
-                            session.Delete(_dbContactPerson);
-                            tx.Commit();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        AppliactionContext.Log.Critical(this, ex.Message);
-                        tx.Rollback();
-                        throw ex;
-                    }
-                }
+                UserContext.DbOperations.Delete(_dbContactPerson);
             }
         }
 
         internal DbContactPerson DbContactPerson
         {
-            get {
+            get
+            {
                 return _dbContactPerson;
             }
         }

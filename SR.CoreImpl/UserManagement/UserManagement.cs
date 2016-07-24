@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using NHibernate;
+
 using SR.Core.Context;
+using SR.Core.DbAccess;
 using SR.Core.Rights;
 using SR.Core.UserManagement;
 using SR.Core.Users;
 using SR.CoreImpl.Users;
+
 using SR.ModelImpl.DbModel;
 
 namespace SR.CoreImpl.UserManagement
@@ -32,30 +34,29 @@ namespace SR.CoreImpl.UserManagement
 
             if (IsMaster(username) || IsGuest(username))
             {
-                AppliactionContext.Log.Warning(this, String.Format("User with username '{0}' already exist.", username));
+                AppliactionContext.Log.Warning(this, $"User with username '{username}' already exist.");
                 throw new UserManagementException(String.Format(Resources.UserAlreadyExists, username));
             }
 
             if (String.IsNullOrEmpty(password))
             {
-                AppliactionContext.Log.Warning(this, String.Format("Password for user '{0}' is empty.", username));
+                AppliactionContext.Log.Warning(this, $"Password for user '{username}' is empty.");
                 throw new UserManagementException(Resources.PasswordCantBeEmpty);
             }
 
-            using (ISession session = AppliactionContext.SessionFactory.OpenSession())
-            {
-                IQuery query = session.CreateQuery("from " + typeof (DbUser) + " u where u.Username = :Username");
-                IList<DbUser> users = query.SetParameter("Username", username).List<DbUser>();
+            string query = "from " + typeof(DbUser) + " u where u.Username = :Username";
+            QueryParams queryParams = new QueryParams(new QueryParam("Username", username));
 
-                if (users.Count != 0)
-                {
-                    AppliactionContext.Log.Warning(this, String.Format("User with username '{0}' already exist.", username));
-                    throw new UserManagementException(String.Format(Resources.UserAlreadyExists, username));
-                }
+            IList<DbUser> users = AppliactionContext.DbOperations.QueryDb<DbUser>(query, queryParams);
+
+            if (users.Count != 0)
+            {
+                AppliactionContext.Log.Warning(this, $"User with username '{username}' already exist.");
+                throw new UserManagementException(String.Format(Resources.UserAlreadyExists, username));
             }
 
             IUser newUser = new User(username, password);
-            AppliactionContext.Log.Debug(this, String.Format("User with username '{0}' was created.", username));
+            AppliactionContext.Log.Debug(this, $"User with username '{username}' was created.");
             newUser.Save();
             _users.Add(newUser);
 
@@ -107,15 +108,12 @@ namespace SR.CoreImpl.UserManagement
         {
             using (AppliactionContext.Log.LogTime(this, "Reading all users"))
             {
-                using (ISession session = AppliactionContext.SessionFactory.OpenSession())
+                IList<DbUser> dbUsers = AppliactionContext.DbOperations.GetAll<DbUser>();
+                foreach (DbUser dbUser in dbUsers)
                 {
-                    IList<DbUser> dbUsers = session.CreateCriteria<DbUser>().List<DbUser>();
-                    foreach (DbUser dbUser in dbUsers)
-                    {
-                        IUser newUser = new User(dbUser);
-                        _users.Add(newUser);
-                        AppliactionContext.Log.Debug(this, String.Format("User '{0}' read from DB.", newUser.Username));
-                    }
+                    IUser newUser = new User(dbUser);
+                    _users.Add(newUser);
+                    AppliactionContext.Log.Debug(this, String.Format("User '{0}' read from DB.", newUser.Username));
                 }
             }
         }

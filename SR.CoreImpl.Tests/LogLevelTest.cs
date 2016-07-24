@@ -1,8 +1,11 @@
 ﻿using System;
+
 using NUnit.Framework;
+
 using SR.Core.Context;
 using SR.Core.Log;
-using SR.Tiskarna;
+
+using SR.Reservito;
 
 namespace SR.CoreImpl.Tests
 {
@@ -144,7 +147,7 @@ namespace SR.CoreImpl.Tests
         [OneTimeSetUpAttribute]
         public void AllTestsInit()
         {
-            new TiskarnaVosahlo();
+            new ReservitoApp();
 
             _log = AppliactionContext.Log;
 
