@@ -36,7 +36,7 @@ namespace SR.ModelImpl.DbAccess
             }
         }
 
-        public T Reload<T>(Guid id)
+        public T Reload<T>(Guid id) where T : ICloneable
         {
             using (ISession session = _sessionFactory.OpenSession())
             {
@@ -44,7 +44,7 @@ namespace SR.ModelImpl.DbAccess
                 {
                     try
                     {
-                        return (T)session.Load<T>(id);
+                        return (T)(session.Load<T>(id)).Clone();
                     }
                     catch (Exception ex)
                     {

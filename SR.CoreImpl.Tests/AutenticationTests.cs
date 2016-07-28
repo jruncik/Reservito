@@ -8,6 +8,7 @@ using SR.Core.UserManagement;
 using SR.CoreImpl.Autentication;
 
 using SR.Reservito;
+using SR.TestsCore;
 
 namespace SR.CoreImpl.Tests
 {
@@ -59,20 +60,20 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void LoginMasterUser()
         {
-            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
-            Assert.AreEqual(UserContext.User.Username, MASTER_USERNAME);
-            Assert.AreEqual(UserContext.User.Password, MASTER_PASSWORD);
+            Assert.AreEqual(UserContext.User.Username, DbUsers.MASTER_USERNAME);
+            Assert.AreEqual(UserContext.User.Password, DbUsers.MASTER_PASSWORD);
             Assert.AreEqual(UserContext.Context.IsInRole(Roles.Unknown), true);
         }
 
         [Test]
         public void LoginGuestUser()
         {
-            ReservitoApp.Autentication.LogIn(GUEST_USERNAME, GUEST_PASSWORD);
+            ReservitoApp.Autentication.LogIn(DbUsers.GUEST_USERNAME, DbUsers.GUEST_PASSWORD);
 
-            Assert.AreEqual(UserContext.User.Username, GUEST_USERNAME);
-            Assert.AreEqual(UserContext.User.Password, GUEST_PASSWORD);
+            Assert.AreEqual(UserContext.User.Username, DbUsers.GUEST_USERNAME);
+            Assert.AreEqual(UserContext.User.Password, DbUsers.GUEST_PASSWORD);
             Assert.AreEqual(UserContext.Context.IsInRole(Roles.ManageUsers), false);
         }
 
@@ -106,7 +107,7 @@ namespace SR.CoreImpl.Tests
 
         private void AddTestUser()
         {
-            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
             userManagement.CreateNewUser(USERNAME, PASSWORD);
@@ -122,11 +123,5 @@ namespace SR.CoreImpl.Tests
 
         private const String WRONG_USERNAME = "WrongUsername";
         private const String WRONG_PASSWORD = "WrongPassword";
-
-        private const String MASTER_USERNAME = "UberNjorloj";
-        private const String MASTER_PASSWORD = "IddqdIdkfa";
-
-        private const String GUEST_USERNAME = "Guest";
-        private const String GUEST_PASSWORD = "guest";
     }
 }

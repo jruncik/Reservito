@@ -1,9 +1,11 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 using SR.Core.Context;
 using SR.ModelImpl.Model;
 
 using SR.Reservito;
+using SR.TestsCore;
 
 namespace SR.ModelImpl.Tests
 {
@@ -28,7 +30,7 @@ namespace SR.ModelImpl.Tests
         [SetUp]
         public void TestInit()
         {
-            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
         }
 
         [TearDown]
@@ -49,8 +51,5 @@ namespace SR.ModelImpl.Tests
         }
 
         #endregion
-
-        private const string MASTER_USERNAME = "UberNjorloj";
-        private const string MASTER_PASSWORD = "IddqdIdkfa";
     }
 }

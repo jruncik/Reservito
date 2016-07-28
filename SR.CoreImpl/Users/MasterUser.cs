@@ -43,7 +43,7 @@ namespace SR.CoreImpl.Users
         {
         }
 
-        private const string MASTER_USERNAME = "UberNjorloj";
-        private const string MASTER_PASSWORD = "IddqdIdkfa";
+        private const String MASTER_USERNAME = "remaster";
+        private const String MASTER_PASSWORD = "rmaster";
     }
 }

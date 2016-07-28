@@ -22,12 +22,12 @@ namespace SR.Core.DbAccess
 
         public IEnumerator<QueryParam> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _queryParams.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _queryParams.GetEnumerator();
         }
 
         private readonly List<QueryParam> _queryParams = new List<QueryParam>(4);

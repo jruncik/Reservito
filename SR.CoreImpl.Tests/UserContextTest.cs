@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 using SR.Core.Context;
 using SR.Reservito;
+using SR.TestsCore;
 
 namespace SR.CoreImpl.Tests
 {
@@ -14,10 +15,10 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CreateContext()
         {
-            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
-            Assert.AreEqual(MASTER_USERNAME, UserContext.User.Username);
-            Assert.AreEqual(MASTER_PASSWORD, UserContext.User.Password);
+            Assert.AreEqual(DbUsers.MASTER_USERNAME, UserContext.User.Username);
+            Assert.AreEqual(DbUsers.MASTER_PASSWORD, UserContext.User.Password);
 
             UserContext.Logout();
         }
@@ -25,7 +26,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CloseContext()
         {
-            ReservitoApp.Autentication.LogIn(MASTER_USERNAME, MASTER_PASSWORD);
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             UserContext.Logout();
 
@@ -57,11 +58,5 @@ namespace SR.CoreImpl.Tests
         }
 
         #endregion
-
-        private const String MASTER_USERNAME = "UberNjorloj";
-        private const String MASTER_PASSWORD = "IddqdIdkfa";
-
-        private const String GUEST_USERNAME = "Guest";
-        private const String GUEST_PASSWORD = "guest";
     }
 }
