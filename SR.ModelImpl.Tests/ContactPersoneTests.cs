@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using SR.Core.Context;
 using SR.ModelImpl.Model;

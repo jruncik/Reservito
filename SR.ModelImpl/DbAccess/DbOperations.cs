@@ -44,6 +44,7 @@ namespace SR.ModelImpl.DbAccess
                 {
                     try
                     {
+                        // Clone it, in other case object form session is returned. Session is closed at the end of using...
                         return (T)(session.Load<T>(id)).Clone();
                     }
                     catch (Exception ex)

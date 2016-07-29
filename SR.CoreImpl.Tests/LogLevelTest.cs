@@ -17,25 +17,25 @@ namespace SR.CoreImpl.Tests
         {
             _log.CurrentLogLevel = LogLevel.Critical;
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Debug(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Info(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Warning(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Error(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Critical(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
         }
 
         [Test]
@@ -43,25 +43,25 @@ namespace SR.CoreImpl.Tests
         {
             _log.CurrentLogLevel = LogLevel.Error;
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Debug(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Info(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Warning(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Error(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Critical(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
         }
 
         [Test]
@@ -69,25 +69,25 @@ namespace SR.CoreImpl.Tests
         {
             _log.CurrentLogLevel = LogLevel.Warning;
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Debug(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Info(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Warning(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Error(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Critical(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
         }
 
         [Test]
@@ -95,25 +95,25 @@ namespace SR.CoreImpl.Tests
         {
             _log.CurrentLogLevel = LogLevel.Info;
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Debug(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, false);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, false);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Info(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Warning(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Error(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Critical(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
         }
 
         [Test]
@@ -121,25 +121,25 @@ namespace SR.CoreImpl.Tests
         {
             _log.CurrentLogLevel = LogLevel.Debug;
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Debug(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Info(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Warning(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Error(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
 
-            _logWriterTest.IsMessageLogged = false;
+            _logWriterMocq.IsMessageLogged = false;
             _log.Critical(null, MESSAGE);
-            Assert.AreEqual(_logWriterTest.IsMessageLogged, true);
+            Assert.AreEqual(_logWriterMocq.IsMessageLogged, true);
         }
 
 
@@ -152,13 +152,13 @@ namespace SR.CoreImpl.Tests
             _log = AppliactionContext.Log;
 
             _log.Writers.Clear();
-            _logWriterTest = new LogWriterTest();
-            _log.Writers.Add(_logWriterTest);
+            _logWriterMocq = new LogWriterMocq();
+            _log.Writers.Add(_logWriterMocq);
         }
         #endregion
 
         private const String MESSAGE = "Message";
         private ILog _log;
-        private LogWriterTest _logWriterTest;
+        private LogWriterMocq _logWriterMocq;
     }
 }
