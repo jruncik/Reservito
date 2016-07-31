@@ -5,8 +5,15 @@ namespace SR.Core.Users
     public interface IUser : IDbStorable
     {
         Guid Id { get; set; }
-        String Username { get; set; }
-        String Password { get; set; }
+
+        string Username { get; set; }
+        string Password { get; set; }
+
+        string FirstName { get; set; }
+        string LastName { get; set; }
+        string Email { get; set; }
+        string PhoneNumber { get; set; }
+
         bool IsBuiltIn { get; }
     }
 }

@@ -18,17 +18,22 @@ namespace SR.CoreImpl.Users
             _dbUser = dbUser;
         }
 
-        public User(String username, String password) :
+        public User(string username, string password, string firstName, string lastName, string email, string phoneNumber) :
             this(new DbUser())
         {
-            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password) ||
+                String.IsNullOrEmpty(firstName) || String.IsNullOrEmpty(lastName) || String.IsNullOrEmpty(email))
             {
-                AppliactionContext.Log.Debug(this, "Username or password is empty.");
+                AppliactionContext.Log.Debug(this, "Username or password or FirstName or LastName or Email is empty.");
                 throw new TvException(Resources.UsernameOrPasswordIsEmpty);
             }
 
             Username = username;
             Password = password;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            PhoneNumber = phoneNumber;
         }
 
         public Guid Id
@@ -49,6 +54,31 @@ namespace SR.CoreImpl.Users
             set { _dbUser.Password = value; }
         }
 
+        public string FirstName
+        {
+            get { return _dbUser.FirstName; }
+            set { _dbUser.FirstName = value; }
+        }
+
+        public string LastName
+        {
+            get { return _dbUser.LastName; }
+            set { _dbUser.LastName = value; }
+        }
+
+        public string Email
+        {
+            get { return _dbUser.Email; }
+            set { _dbUser.Email = value; }
+        }
+
+        public string PhoneNumber
+        {
+            get { return _dbUser.PhoneNumber; }
+            set { _dbUser.PhoneNumber = value; }
+        }
+
+
         internal DbUser DbUser
         {
             get { return _dbUser; }
@@ -56,10 +86,7 @@ namespace SR.CoreImpl.Users
 
         public bool IsBuiltIn
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
 
         public void Save()

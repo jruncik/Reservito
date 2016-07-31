@@ -110,18 +110,24 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            userManagement.CreateNewUser(USERNAME, PASSWORD);
+            userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             UserContext.Logout();
         }
 
         #endregion
 
-        private const String USERNAME = "TestNjorloj";
-        private const String PASSWORD = "TestChorchoj";
-        private const String USERNAME_CASE_INSENSITIVE = "TeStNjOrLoJ";
+        private const string FIRSTNAME = "FirstName";
+        private const string LASTNAME = "LastName";
+        private const string EMAIL = "Email@Email.em";
+        private const string PHONE_NUMBER = "+420 123 456 789";
 
-        private const String WRONG_USERNAME = "WrongUsername";
-        private const String WRONG_PASSWORD = "WrongPassword";
+        private const string USERNAME = "TestNjorloj";
+        private const string PASSWORD = "TestChorchoj";
+        private const string USERNAME_CASE_INSENSITIVE = "TeStNjOrLoJ";
+
+
+        private const string WRONG_USERNAME = "WrongUsername";
+        private const string WRONG_PASSWORD = "WrongPassword";
     }
 }

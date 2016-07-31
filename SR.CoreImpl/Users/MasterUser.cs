@@ -25,10 +25,31 @@ namespace SR.CoreImpl.Users
 
         public bool IsBuiltIn
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
+        }
+
+        public string FirstName
+        {
+            get { return String.Empty; }
+            set { }
+        }
+
+        public string LastName
+        {
+            get { return String.Empty; }
+            set { }
+        }
+
+        public string Email
+        {
+            get { return String.Empty; }
+            set { }
+        }
+
+        public string PhoneNumber
+        {
+            get { return String.Empty; }
+            set { }
         }
 
         public void Save()

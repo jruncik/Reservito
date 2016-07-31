@@ -21,7 +21,7 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            Assert.That(() => userManagement.CreateNewUser("", PASSWORD), Throws.TypeOf<UserManagementException>());
+            Assert.That(() => userManagement.CreateNewUser("", PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER), Throws.TypeOf<UserManagementException>());
         }
 
         [Test]
@@ -30,7 +30,34 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            Assert.That(() => userManagement.CreateNewUser(USERNAME, ""), Throws.TypeOf<UserManagementException>());
+            Assert.That(() => userManagement.CreateNewUser(USERNAME, "", FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER), Throws.TypeOf<UserManagementException>());
+        }
+
+        [Test]
+        public void CreateNewUserEmptyFirtstName()
+        {
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
+
+            IUserManagement userManagement = ReservitoApp.UserManagement;
+            Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD, "", LASTNAME, EMAIL, PHONE_NUMBER), Throws.TypeOf<UserManagementException>());
+        }
+
+        [Test]
+        public void CreateNewUserEmptyLastName()
+        {
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
+
+            IUserManagement userManagement = ReservitoApp.UserManagement;
+            Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, "", EMAIL, PHONE_NUMBER), Throws.TypeOf<UserManagementException>());
+        }
+
+        [Test]
+        public void CreateNewUserEmptyEmail()
+        {
+            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
+
+            IUserManagement userManagement = ReservitoApp.UserManagement;
+            Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, "", PHONE_NUMBER), Throws.TypeOf<UserManagementException>());
         }
 
         [Test]
@@ -39,11 +66,11 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
+            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             try
             {
-                Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD), Throws.TypeOf<UserManagementException>());
+                Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER), Throws.TypeOf<UserManagementException>());
             }
             finally
             {
@@ -57,7 +84,7 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.GUEST_USERNAME, DbUsers.GUEST_PASSWORD);
             IUserManagement userManagement = ReservitoApp.UserManagement;
 
-            Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD), Throws.TypeOf<RightsException>());
+            Assert.That(() => userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER), Throws.TypeOf<RightsException>());
         }
 
         [Test]
@@ -66,7 +93,7 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
+            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             Assert.AreEqual(newUser.Username, USERNAME);
             Assert.AreEqual(newUser.Password, PASSWORD);
@@ -80,7 +107,7 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
+            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             Assert.True(userManagement.Users.Contains(newUser));
 
@@ -93,7 +120,7 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
+            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             newUser.Username = NEW_USERNAME;
             newUser.Password = NEW_PASSWORD;
@@ -113,7 +140,7 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
+            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             newUser.Username = NEW_USERNAME;
             newUser.Password = NEW_PASSWORD;
@@ -132,7 +159,7 @@ namespace SR.CoreImpl.Tests
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = ReservitoApp.UserManagement;
-            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD);
+            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             userManagement.DeleteUser(newUser);
         }
@@ -166,10 +193,14 @@ namespace SR.CoreImpl.Tests
         }
 
         #endregion
-        private const String USERNAME = "TestNjorloj";
-        private const String PASSWORD = "TestChorchoj";
+        private const string USERNAME = "TestNjorloj";
+        private const string PASSWORD = "TestChorchoj";
+        private const string FIRSTNAME = "FirstName";
+        private const string LASTNAME = "LastName";
+        private const string EMAIL = "Email@Email.em";
+        private const string PHONE_NUMBER = "+420 123 456 789";
 
-         private const String NEW_USERNAME = "TestNewUsername";
-        private const String NEW_PASSWORD = "TestNewPassword";
+        private const string NEW_USERNAME = "TestNewUsername";
+        private const string NEW_PASSWORD = "TestNewPassword";
     }
 }

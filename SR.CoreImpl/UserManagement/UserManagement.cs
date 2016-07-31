@@ -22,7 +22,7 @@ namespace SR.CoreImpl.UserManagement
             ReadAllUsers();
         }
 
-        public IUser CreateNewUser(string username, string password)
+        public IUser CreateNewUser(string username, string password, string firstName, string lastName, string email, string phoneNumber)
         {
             CheckRights();
 
@@ -30,6 +30,13 @@ namespace SR.CoreImpl.UserManagement
             {
                 AppliactionContext.Log.Warning(this, "Username is empty.");
                 throw new UserManagementException(Resources.UsernameCantBeEmpty);
+            }
+
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password) ||
+                String.IsNullOrEmpty(firstName) || String.IsNullOrEmpty(lastName) || String.IsNullOrEmpty(email))
+            {
+                AppliactionContext.Log.Debug(this, "Username or password or FirstName or LastName or Email is empty.");
+                throw new UserManagementException(Resources.UsernameOrPasswordIsEmpty);
             }
 
             if (IsMaster(username) || IsGuest(username))
@@ -55,9 +62,10 @@ namespace SR.CoreImpl.UserManagement
                 throw new UserManagementException(String.Format(Resources.UserAlreadyExists, username));
             }
 
-            IUser newUser = new User(username, password);
+            IUser newUser = new User(username, password, firstName, lastName, email, phoneNumber);
             AppliactionContext.Log.Debug(this, $"User with username '{username}' was created.");
             newUser.Save();
+
             _users.Add(newUser);
 
             return newUser;
@@ -66,6 +74,22 @@ namespace SR.CoreImpl.UserManagement
         public IUser TryFindUser(string username)
         {
             return _users.Where(user => String.Compare(username, user.Username, StringComparison.OrdinalIgnoreCase) == 0).DefaultIfEmpty(EmptyUser).First();
+        }
+
+        public IUser TryFindUserByUsername(string username)
+        {
+            return _users.Where(user => String.Compare(username, user.Username, StringComparison.OrdinalIgnoreCase) == 0).DefaultIfEmpty(EmptyUser).First();
+        }
+
+        public IUser TryFindUserByEmail(string email)
+        {
+            return _users.Where(user => String.Compare(email, user.Email, StringComparison.OrdinalIgnoreCase) == 0).DefaultIfEmpty(EmptyUser).First();
+        }
+
+        public IUser TryFindUserByFullName(string firstName, string lastName)
+        {
+            return _users.Where(user => String.Compare(firstName, user.FirstName, StringComparison.OrdinalIgnoreCase) == 0 &&
+                                        String.Compare(lastName, user.LastName, StringComparison.OrdinalIgnoreCase) == 0).DefaultIfEmpty(EmptyUser).First();
         }
 
         public void DeleteUser(IUser userToDelete)

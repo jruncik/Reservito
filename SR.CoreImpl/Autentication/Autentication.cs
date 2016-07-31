@@ -54,7 +54,7 @@ namespace SR.CoreImpl.Autentication
                 throw new AutenticationException(Resources.UsernameOrPasswordIsEmpty);
             }
 
-            IUser user = _userManagement.TryFindUser(username);
+            IUser user = _userManagement.TryFindUserByUsername(username);
             if (user == null)
             {
                 AppliactionContext.Log.Warning(this, "Username is unknown.");
