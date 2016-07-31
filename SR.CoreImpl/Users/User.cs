@@ -78,6 +78,11 @@ namespace SR.CoreImpl.Users
             set { _dbUser.PhoneNumber = value; }
         }
 
+        public bool Active
+        {
+            get { return _dbUser.Active; }
+            set { _dbUser.Active = value; }
+        }
 
         internal DbUser DbUser
         {

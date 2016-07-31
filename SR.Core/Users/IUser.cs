@@ -14,6 +14,8 @@ namespace SR.Core.Users
         string Email { get; set; }
         string PhoneNumber { get; set; }
 
+        bool Active { get; set; }
+
         bool IsBuiltIn { get; }
     }
 }

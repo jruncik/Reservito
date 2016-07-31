@@ -23,6 +23,12 @@ namespace SR.CoreImpl.Users
             set { }
         }
 
+        public bool Active
+        {
+            get { return false; }
+            set { }
+        }
+
         public bool IsBuiltIn
         {
             get { return true; }

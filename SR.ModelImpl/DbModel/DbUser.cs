@@ -13,6 +13,8 @@ namespace SR.ModelImpl.DbModel
         public virtual string LastName { get; set; }
         public virtual string PhoneNumber { get; set; }
         public virtual string Email { get; set; }
+        public virtual bool Active { get; set; }
+
 
 
         public DbUser()
@@ -25,6 +27,7 @@ namespace SR.ModelImpl.DbModel
             LastName = String.Empty;
             PhoneNumber = String.Empty;
             Email = String.Empty;
+            Active = false;
         }
 
         public DbUser(DbUser other)
@@ -36,6 +39,7 @@ namespace SR.ModelImpl.DbModel
             LastName = other.LastName;
             PhoneNumber = other.PhoneNumber;
             Email = other.Email;
+            Active = other.Active;
         }
 
         public virtual object Clone()

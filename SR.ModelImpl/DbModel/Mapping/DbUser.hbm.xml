@@ -14,5 +14,6 @@
     <property name="LastName" column="lastname" />
     <property name="PhoneNumber" column="phonenumber" />
     <property name="Email" column="email" />
+    <property name="Active" column="active" />
   </class>
 </hibernate-mapping>

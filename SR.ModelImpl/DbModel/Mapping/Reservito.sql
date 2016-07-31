@@ -1,16 +1,8 @@
-/*
-BEGIN;
-CREATE DATABASE "reservito"
-  WITH ENCODING='UTF8'
-       OWNER=remaster
-       CONNECTION LIMIT=-1; 
 COMMIT;
-*/
 
 BEGIN;
 DROP TABLE IF EXISTS public.users CASCADE;
 DROP TABLE IF EXISTS public.rights CASCADE;
-DROP TABLE IF EXISTS public.contactpersons CASCADE;
 COMMIT;
 
 BEGIN;
@@ -22,6 +14,7 @@ CREATE TABLE public.users (
   lastname VARCHAR(128) NOT NULL,
   phonenumber VARCHAR(32),
   email VARCHAR(256) NOT NULL,
+  active boolean NOT NULL,
   CONSTRAINT users_pkey PRIMARY KEY(id),
   CONSTRAINT users_username_key UNIQUE(username)
 ) 

@@ -97,6 +97,7 @@ namespace SR.CoreImpl.Tests
 
             Assert.AreEqual(newUser.Username, USERNAME);
             Assert.AreEqual(newUser.Password, PASSWORD);
+            Assert.AreEqual(newUser.Active, false);
 
             userManagement.DeleteUser(newUser);
         }

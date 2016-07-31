@@ -6,7 +6,7 @@ namespace SR.CoreImpl.Rights
     {
         public bool IsInRole(string role)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool IsInRole(Roles roles)
