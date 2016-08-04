@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using SR.Core.Users;
 
@@ -8,6 +9,8 @@ namespace SR.Model
     {
         Guid Id { get; set; }
 
-        IUser Coach { get; set; }
+        DateTime Time { get; set; }
+
+        IList<IUser> Cliens { get; }
     }
 }

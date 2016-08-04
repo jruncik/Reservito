@@ -15,8 +15,6 @@ namespace SR.ModelImpl.DbModel
         public virtual string Email { get; set; }
         public virtual bool Active { get; set; }
 
-
-
         public DbUser()
         {
             Id = Guid.Empty;

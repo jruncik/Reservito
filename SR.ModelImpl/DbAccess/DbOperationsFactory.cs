@@ -13,7 +13,7 @@ namespace SR.ModelImpl.DbAccess
 
         public IDbOperations CreateDbOperations()
         {
-            return new DbOperations(_sessionFactory);
+            return new DbOperationsShortTimeSession(_sessionFactory);
         }
 
         private readonly ISessionFactory _sessionFactory;

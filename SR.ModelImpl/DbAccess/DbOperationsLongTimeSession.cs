@@ -8,9 +8,9 @@ using SR.Core.DbAccess;
 
 namespace SR.ModelImpl.DbAccess
 {
-    internal class DbOperations : IDbOperations
+    internal class DbOperationsLongTimeSession : IDbOperations
     {
-        internal DbOperations(ISessionFactory sessionFactory)
+        internal DbOperationsLongTimeSession(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
@@ -102,7 +102,7 @@ namespace SR.ModelImpl.DbAccess
             }
         }
 
-        public IList<T> GetAll<T>() where T: class
+        public IList<T> GetAll<T>() where T : class
         {
             try
             {
