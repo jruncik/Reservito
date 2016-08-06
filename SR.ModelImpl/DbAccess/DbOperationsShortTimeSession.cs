@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 using NHibernate;
-
+using SR.Core;
 using SR.Core.Context;
 using SR.Core.DbAccess;
 
 namespace SR.ModelImpl.DbAccess
 {
-    internal class DbOperationsShortTimeSession : IDbOperations
+    internal class DbOperationsShortTimeSession : EasyDispose, IDbOperations
     {
         internal DbOperationsShortTimeSession(ISessionFactory sessionFactory)
         {

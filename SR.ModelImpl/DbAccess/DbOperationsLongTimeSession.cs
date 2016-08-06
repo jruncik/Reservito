@@ -3,113 +3,94 @@ using System.Collections.Generic;
 
 using NHibernate;
 
+using SR.Core;
 using SR.Core.Context;
 using SR.Core.DbAccess;
 
 namespace SR.ModelImpl.DbAccess
 {
-    internal class DbOperationsLongTimeSession : IDbOperations
+    internal class DbOperationsLongTimeSession : EasyDispose, IDbOperations
     {
         internal DbOperationsLongTimeSession(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
+            _session = _sessionFactory.OpenSession();
+        }
+
+        protected override void DestroyManagedResources()
+        {
+            _session.Dispose();
+            _session = null;
+
+            _sessionFactory = null;
         }
 
         public void Save(object dbObject)
         {
-            using (ISession session = _sessionFactory.OpenSession())
+            using (ITransaction tx = _session.BeginTransaction())
             {
-                using (ITransaction tx = session.BeginTransaction())
+                try
                 {
-                    try
-                    {
-                        session.SaveOrUpdate(dbObject);
-                        tx.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        AppliactionContext.Log.Critical(this, ex.Message);
-                        tx.Rollback();
-                        throw ex;
-                    }
+                    _session.SaveOrUpdate(dbObject);
+                    tx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    AppliactionContext.Log.Critical(this, ex.Message);
+                    tx.Rollback();
+                    throw ex;
                 }
             }
         }
 
         public T Reload<T>(Guid id) where T : ICloneable
         {
-            using (ISession session = _sessionFactory.OpenSession())
+            using (ITransaction tx = _session.BeginTransaction())
             {
-                using (ITransaction tx = session.BeginTransaction())
+                try
                 {
-                    try
-                    {
-                        // Clone it, in other case object form session is returned. Session is closed at the end of using...
-                        return (T)(session.Load<T>(id)).Clone();
-                    }
-                    catch (Exception ex)
-                    {
-                        AppliactionContext.Log.Critical(this, ex.Message);
-                        tx.Rollback();
-                        throw ex;
-                    }
+                    // Long time session doesn't need Clone(). Poroxy objects isn't deleted.
+                    return (T)_session.Load<T>(id);
+                }
+                catch (Exception ex)
+                {
+                    AppliactionContext.Log.Critical(this, ex.Message);
+                    tx.Rollback();
+                    throw ex;
                 }
             }
         }
 
         public void Delete(object dbObject)
         {
-            using (ISession session = _sessionFactory.OpenSession())
+            using (ITransaction tx = _session.BeginTransaction())
             {
-                using (ITransaction tx = session.BeginTransaction())
+                try
                 {
-                    try
-                    {
-                        session.Delete(dbObject);
-                        tx.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        AppliactionContext.Log.Critical(this, ex.Message);
-                        tx.Rollback();
-                        throw ex;
-                    }
+                    _session.Delete(dbObject);
+                    tx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    AppliactionContext.Log.Critical(this, ex.Message);
+                    tx.Rollback();
+                    throw ex;
                 }
             }
         }
 
         public IList<T> QueryDb<T>(string query, QueryParams queryParams)
         {
-            using (ISession session = _sessionFactory.OpenSession())
-            {
-                try
-                {
-                    IQuery nhQuery = session.CreateQuery(query);
-
-                    foreach (QueryParam queryParam in queryParams)
-                    {
-                        nhQuery.SetParameter(queryParam.Name, queryParam.Value);
-                    }
-
-                    return nhQuery.List<T>();
-                }
-                catch (Exception ex)
-                {
-                    AppliactionContext.Log.Critical(this, ex.Message);
-                }
-
-                return new List<T>(0);
-            }
-        }
-
-        public IList<T> GetAll<T>() where T : class
-        {
             try
             {
-                using (ISession session = _sessionFactory.OpenSession())
+                IQuery nhQuery = _session.CreateQuery(query);
+
+                foreach (QueryParam queryParam in queryParams)
                 {
-                    return session.CreateCriteria<T>().List<T>();
+                    nhQuery.SetParameter(queryParam.Name, queryParam.Value);
                 }
+
+                return nhQuery.List<T>();
             }
             catch (Exception ex)
             {
@@ -119,6 +100,21 @@ namespace SR.ModelImpl.DbAccess
             return new List<T>(0);
         }
 
-        private readonly ISessionFactory _sessionFactory;
+        public IList<T> GetAll<T>() where T : class
+        {
+            try
+            {
+                return _session.CreateCriteria<T>().List<T>();
+            }
+            catch (Exception ex)
+            {
+                AppliactionContext.Log.Critical(this, ex.Message);
+            }
+
+            return new List<T>(0);
+        }
+
+        private ISessionFactory _sessionFactory;
+        private ISession _session;
     }
 }

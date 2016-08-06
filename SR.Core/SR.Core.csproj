@@ -58,7 +58,7 @@
     <Compile Include="ICoreFactory.cs" />
     <Compile Include="DbAccess\IDbOperations.cs" />
     <Compile Include="IDbStorable.cs" />
-    <Compile Include="DisposableBase.cs" />
+    <Compile Include="EasyDispose.cs" />
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\ILogMessageGenerator.cs" />
     <Compile Include="Log\ILogWriter.cs" />

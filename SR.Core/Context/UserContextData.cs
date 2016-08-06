@@ -79,6 +79,9 @@ namespace SR.Core.Context
             _sessionId = SessionId.Empty;
             IsAuthenticated = false;
 
+            _dbOperations.Dispose();
+            _dbOperations = null;
+
             _originalPrincipal = null;
             _currentUser = null;
             _rights = null;
@@ -90,8 +93,7 @@ namespace SR.Core.Context
             set { _originalPrincipal = value; }
         }
 
-        private readonly IDbOperations _dbOperations;
-
+        private IDbOperations _dbOperations;
         private IUser _currentUser;
         private IRights _rights;
         private SessionId _sessionId;

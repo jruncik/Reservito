@@ -2,7 +2,7 @@
 
 namespace SR.Core.Log
 {
-    public class TimeLoger : DisposableBase
+    public class TimeLoger : EasyDispose
     {
         public TimeLoger(ILog log, object sourceObj, string message)
         {
@@ -11,7 +11,7 @@ namespace SR.Core.Log
             _message = message;
         }
 
-        protected override void DisposeInternal()
+        protected override void DestroyManagedResources()
         {
             DateTime endTime = DateTime.Now;
             TimeSpan duration = endTime - _startTime;

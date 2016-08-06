@@ -62,7 +62,7 @@ namespace SR.CoreImpl.Users
         {
         }
 
-        public void Reload()
+        public void Load()
         {
         }
 

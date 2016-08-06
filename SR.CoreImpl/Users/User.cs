@@ -102,7 +102,7 @@ namespace SR.CoreImpl.Users
             }
         }
 
-        public void Reload()
+        public void Load()
         {
             using (AppliactionContext.Log.LogTime(this, $"Reload user '{Username}'."))
             {

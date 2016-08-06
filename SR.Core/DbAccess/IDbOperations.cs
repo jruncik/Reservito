@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SR.Core.DbAccess
 {
-    public interface IDbOperations
+    public interface IDbOperations : IDisposable
     {
         void Save(object dbObject);
         T Reload<T>(Guid id) where T : ICloneable;

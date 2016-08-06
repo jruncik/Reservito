@@ -116,7 +116,7 @@ namespace SR.CoreImpl.Tests
         }
 
         [Test]
-        public void UpdateUserFromDb()
+        public void ReloadUserFromDb()
         {
             ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
@@ -127,29 +127,13 @@ namespace SR.CoreImpl.Tests
             newUser.Password = NEW_PASSWORD;
 
             newUser.Save();
-            newUser.Reload();
 
-            Assert.AreEqual(newUser.Username, NEW_USERNAME);
-            Assert.AreEqual(newUser.Password, NEW_PASSWORD);
+            IUser newUserOldName = userManagement.TryFindUserByUsername(USERNAME);
+            Assert.AreEqual(newUserOldName.Id, Guid.Empty);
 
-            userManagement.DeleteUser(newUser);
-        }
-
-        [Test]
-        public void UpdateCancleUser()
-        {
-            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
-
-            IUserManagement userManagement = ReservitoApp.UserManagement;
-            IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
-
-            newUser.Username = NEW_USERNAME;
-            newUser.Password = NEW_PASSWORD;
-
-            newUser.Reload();
-
-            Assert.AreEqual(newUser.Username, USERNAME);
-            Assert.AreEqual(newUser.Password, PASSWORD);
+            IUser newUserReloaded = userManagement.TryFindUserByUsername(NEW_USERNAME);
+            Assert.AreEqual(newUserReloaded.Username, NEW_USERNAME);
+            Assert.AreEqual(newUserReloaded.Password, NEW_PASSWORD);
 
             userManagement.DeleteUser(newUser);
         }
@@ -163,6 +147,10 @@ namespace SR.CoreImpl.Tests
             IUser newUser = userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             userManagement.DeleteUser(newUser);
+
+            IUser deletedUser = userManagement.TryFindUserByUsername(USERNAME);
+
+            Assert.AreEqual(deletedUser.Id, Guid.Empty);
         }
 
         #region Tests Initialization
