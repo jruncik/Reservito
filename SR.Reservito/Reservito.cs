@@ -18,11 +18,6 @@ namespace SR.Reservito
         {
             InitApplicationContext();
             InitUserContext();
-
-            _coreFactory = new CoreFactory();
-
-            _userManagement = _coreFactory.CreateUserManagement();
-            _autentication = _coreFactory.CreateAutentication(_userManagement);
         }
 
         private static void InitApplicationContext()
@@ -34,28 +29,15 @@ namespace SR.Reservito
 
             ISessionFactory sessionFactory = configuartion.BuildSessionFactory();
 
+            ICoreFactory coreFactory = new CoreFactory();
             IDbOperationsFactory dbOperationsFactory = new DbOperationsFactory(sessionFactory);
-
-            new AppliactionContext(log, dbOperationsFactory);
+            
+            new AppliactionContext(log, coreFactory, dbOperationsFactory);
         }
 
         private static void InitUserContext()
         {
             new UserContext();
         }
-
-        public static IAutentication Autentication
-        {
-            get { return Instance._autentication; }
-        }
-
-        public static IUserManagement UserManagement
-        {
-            get { return Instance._userManagement; }
-        }
-
-        private readonly ICoreFactory _coreFactory;
-        private readonly IAutentication _autentication;
-        private readonly IUserManagement _userManagement;
     }
 }

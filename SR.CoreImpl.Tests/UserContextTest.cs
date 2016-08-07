@@ -1,6 +1,4 @@
-﻿using System;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using SR.Core.Context;
 using SR.Reservito;
@@ -15,7 +13,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CreateContext()
         {
-            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
+            AppliactionContext.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             Assert.AreEqual(DbUsers.MASTER_USERNAME, UserContext.User.Username);
             Assert.AreEqual(DbUsers.MASTER_PASSWORD, UserContext.User.Password);
@@ -26,7 +24,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void CloseContext()
         {
-            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
+            AppliactionContext.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             UserContext.Logout();
 

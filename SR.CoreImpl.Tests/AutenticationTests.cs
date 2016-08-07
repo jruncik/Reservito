@@ -18,31 +18,31 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void LoginUserWithEmptyUsername()
         {
-            Assert.That(() => ReservitoApp.Autentication.LogIn("", PASSWORD), Throws.TypeOf<AutenticationException>());
+            Assert.That(() => AppliactionContext.Autentication.LogIn("", PASSWORD), Throws.TypeOf<AutenticationException>());
         }
 
         [Test]
         public void LoginUserWithEmptyPassword()
         {
-            Assert.That(() => ReservitoApp.Autentication.LogIn(USERNAME, ""), Throws.TypeOf<AutenticationException>());
+            Assert.That(() => AppliactionContext.Autentication.LogIn(USERNAME, ""), Throws.TypeOf<AutenticationException>());
         }
 
         [Test]
         public void LoginUserWrongUser()
         {
-            Assert.That(() => ReservitoApp.Autentication.LogIn(WRONG_USERNAME, PASSWORD), Throws.TypeOf<AutenticationException>());
+            Assert.That(() => AppliactionContext.Autentication.LogIn(WRONG_USERNAME, PASSWORD), Throws.TypeOf<AutenticationException>());
         }
 
         [Test]
         public void LoginUserWrongPassword()
         {
-            Assert.That(() => ReservitoApp.Autentication.LogIn(USERNAME, WRONG_PASSWORD), Throws.TypeOf<AutenticationException>());
+            Assert.That(() => AppliactionContext.Autentication.LogIn(USERNAME, WRONG_PASSWORD), Throws.TypeOf<AutenticationException>());
         }
 
         [Test]
         public void LoginUser()
         {
-            ReservitoApp.Autentication.LogIn(USERNAME, PASSWORD);
+            AppliactionContext.Autentication.LogIn(USERNAME, PASSWORD);
 
             Assert.AreEqual(UserContext.User.Username, USERNAME);
             Assert.AreEqual(UserContext.User.Password, PASSWORD);
@@ -51,7 +51,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void LoginCaseInsensitiveUser()
         {
-            ReservitoApp.Autentication.LogIn(USERNAME_CASE_INSENSITIVE, PASSWORD);
+            AppliactionContext.Autentication.LogIn(USERNAME_CASE_INSENSITIVE, PASSWORD);
 
             Assert.AreEqual(UserContext.User.Username, USERNAME);
             Assert.AreEqual(UserContext.User.Password, PASSWORD);
@@ -60,7 +60,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void LoginMasterUser()
         {
-            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
+            AppliactionContext.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             Assert.AreEqual(UserContext.User.Username, DbUsers.MASTER_USERNAME);
             Assert.AreEqual(UserContext.User.Password, DbUsers.MASTER_PASSWORD);
@@ -70,7 +70,7 @@ namespace SR.CoreImpl.Tests
         [Test]
         public void LoginGuestUser()
         {
-            ReservitoApp.Autentication.LogIn(DbUsers.GUEST_USERNAME, DbUsers.GUEST_PASSWORD);
+            AppliactionContext.Autentication.LogIn(DbUsers.GUEST_USERNAME, DbUsers.GUEST_PASSWORD);
 
             Assert.AreEqual(UserContext.User.Username, DbUsers.GUEST_USERNAME);
             Assert.AreEqual(UserContext.User.Password, DbUsers.GUEST_PASSWORD);
@@ -82,7 +82,7 @@ namespace SR.CoreImpl.Tests
         [SetUp]
         public void TestInit()
         {
-            ReservitoApp.UserManagement.DeleteAllUsers();
+            AppliactionContext.UserManagement.DeleteAllUsers();
             AddTestUser();
         }
 
@@ -90,7 +90,7 @@ namespace SR.CoreImpl.Tests
         public void TestCleanup()
         {
             UserContext.Logout();
-            ReservitoApp.UserManagement.DeleteAllUsers();
+            AppliactionContext.UserManagement.DeleteAllUsers();
         }
 
         [OneTimeSetUpAttribute]
@@ -102,14 +102,14 @@ namespace SR.CoreImpl.Tests
         [OneTimeTearDownAttribute]
         public void AllTestCleanup()
         {
-            ReservitoApp.UserManagement.DeleteAllUsers();
+            AppliactionContext.UserManagement.DeleteAllUsers();
         }
 
         private void AddTestUser()
         {
-            ReservitoApp.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
+            AppliactionContext.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
-            IUserManagement userManagement = ReservitoApp.UserManagement;
+            IUserManagement userManagement = AppliactionContext.UserManagement;
             userManagement.CreateNewUser(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, PHONE_NUMBER);
 
             UserContext.Logout();

@@ -99,9 +99,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DbModel\Mapping\DbWorkout.hbm">
+    <EmbeddedResource Include="DbModel\Mapping\DbWorkout.hbm.xml">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <Content Include="DbModel\Mapping\Reservito.sql" />
   </ItemGroup>
   <ItemGroup />

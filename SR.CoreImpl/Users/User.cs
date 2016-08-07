@@ -106,7 +106,7 @@ namespace SR.CoreImpl.Users
         {
             using (AppliactionContext.Log.LogTime(this, $"Reload user '{Username}'."))
             {
-                DbUser reloadedUser = AppliactionContext.DbOperations.Reload<DbUser>(_dbUser.Id);
+                DbUser reloadedUser = AppliactionContext.DbOperations.Load<DbUser>(_dbUser.Id);
 
                 _dbUser.Password = reloadedUser.Password;
                 _dbUser.Username = reloadedUser.Username;

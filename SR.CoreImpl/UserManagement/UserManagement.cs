@@ -71,9 +71,9 @@ namespace SR.CoreImpl.UserManagement
             return newUser;
         }
 
-        public IUser TryFindUser(string username)
+        public IUser TryFindUserById(Guid userId)
         {
-            return _users.Where(user => String.Compare(username, user.Username, StringComparison.OrdinalIgnoreCase) == 0).DefaultIfEmpty(EmptyUser).First();
+            return _users.Where(user => userId == user.Id).DefaultIfEmpty(EmptyUser).First();
         }
 
         public IUser TryFindUserByUsername(string username)

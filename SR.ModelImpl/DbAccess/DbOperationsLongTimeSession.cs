@@ -43,7 +43,7 @@ namespace SR.ModelImpl.DbAccess
             }
         }
 
-        public T Reload<T>(Guid id) where T : ICloneable
+        public T Load<T>(Guid id) where T : ICloneable
         {
             using (ITransaction tx = _session.BeginTransaction())
             {

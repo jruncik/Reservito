@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkoutTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

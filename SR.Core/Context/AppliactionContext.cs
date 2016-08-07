@@ -1,5 +1,6 @@
 using SR.Core.DbAccess;
 using SR.Core.Log;
+using SR.Core.UserManagement;
 
 namespace SR.Core.Context
 {
@@ -20,17 +21,34 @@ namespace SR.Core.Context
             get { return Instance._dbOperationsFactory; }
         }
 
-        public AppliactionContext(ILog log, IDbOperationsFactory dbOperationsFactory)
+        public static IAutentication Autentication
+        {
+            get { return Instance._autentication; }
+        }
+
+        public static IUserManagement UserManagement
+        {
+            get { return Instance._userManagement; }
+        }
+
+        public AppliactionContext(ILog log, ICoreFactory coreFactory, IDbOperationsFactory dbOperationsFactory)
         {
             _log = log;
-
+            _coreFactory = coreFactory;
             _dbOperationsFactory = dbOperationsFactory;
 
             _dbOperations = _dbOperationsFactory.CreateDbOperations();
+
+            _userManagement = _coreFactory.CreateUserManagement();
+            _autentication = _coreFactory.CreateAutentication(_userManagement);
         }
 
+        private readonly ICoreFactory _coreFactory;
         private readonly ILog _log;
         private readonly IDbOperations _dbOperations;
         private readonly IDbOperationsFactory _dbOperationsFactory;
+        private readonly IAutentication _autentication;
+        private readonly IUserManagement _userManagement;
+
     }
 }
