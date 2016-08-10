@@ -70,6 +70,12 @@ namespace SR.CoreImpl.Users
         {
         }
 
+        public object GetDbObject()
+        {
+            return null;
+        }
+
+
         private const string GUEST_USERNAME = "Guest";
         private const string GUEST_PASSWORD = "guest";
     }

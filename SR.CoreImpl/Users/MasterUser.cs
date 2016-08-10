@@ -70,6 +70,11 @@ namespace SR.CoreImpl.Users
         {
         }
 
+        public object GetDbObject()
+        {
+            return null;
+        }
+
         private const String MASTER_USERNAME = "remaster";
         private const String MASTER_PASSWORD = "rmaster";
     }

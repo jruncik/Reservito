@@ -23,11 +23,11 @@ namespace SR.ModelImpl.Tests
             workout.Capacity = 20;
             workout.Price = 150;
 
-            workout.Cliens.Add(_user1);
-            workout.Cliens.Add(_user2);
+            workout.AddClient(_user1);
+            workout.AddClient(_user2);
 
             workout.Save();
-
+            workout.Load();
             workout.Delete();
         }
 

@@ -16,6 +16,10 @@ namespace SR.Model
 
         int Price { get; set; }
 
-        IList<IUser> Cliens { get; }
+        IEnumerable<IUser> Cliens { get; }
+
+        void AddClient(IUser clientToAdd);
+
+        void RemoveClient(IUser clientToRemove);
     }
 }

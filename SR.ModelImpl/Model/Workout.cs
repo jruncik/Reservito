@@ -5,6 +5,7 @@ using SR.Core.Users;
 using SR.Model;
 using SR.ModelImpl.DbModel;
 using SR.Core.Context;
+using System.Linq;
 
 namespace SR.ModelImpl.Model
 {
@@ -14,11 +15,6 @@ namespace SR.ModelImpl.Model
         {
             _dbWorkout = new DbWorkout();
             _clients = new List<IUser>();
-        }
-
-        public IList<IUser> Cliens
-        {
-            get { return _clients; }
         }
 
         public Guid Id
@@ -45,6 +41,37 @@ namespace SR.ModelImpl.Model
             set { _dbWorkout.Price = value; }
         }
 
+        IEnumerable<IUser> IWorkout.Cliens
+        {
+            get { return _clients.Select(c => c); }
+        }
+
+        public void AddClient(IUser clientToAdd)
+        {
+            if (!_clients.Contains(clientToAdd))
+            {
+                _clients.Add(clientToAdd);
+
+                if (clientToAdd.GetDbObject() is DbUser)
+                {
+                    _dbWorkout.Cliens.Add((DbUser)clientToAdd.GetDbObject());
+                }
+            }
+        }
+
+        public void RemoveClient(IUser clientToRemove)
+        {
+            if (_clients.Contains(clientToRemove))
+            {
+                _clients.Remove(clientToRemove);
+                if (clientToRemove.GetDbObject() is DbUser)
+                {
+                    _dbWorkout.Cliens.Remove((DbUser)clientToRemove.GetDbObject());
+                }
+            }
+        }
+
+
         public void Save()
         {
             using (AppliactionContext.Log.LogTime(this, $"Save workout '{Id}'."))
@@ -62,7 +89,6 @@ namespace SR.ModelImpl.Model
                 _dbWorkout.Time = loadedWorkout.Time;
 
                 _clients.Clear();
-                /*
                 foreach (DbUser dbClient in _dbWorkout.Cliens)
                 {
                     IUser client = AppliactionContext.UserManagement.TryFindUserById(dbClient.Id);
@@ -74,7 +100,6 @@ namespace SR.ModelImpl.Model
 
                     _clients.Add(client);
                 }
-                */
             }
         }
 
@@ -84,6 +109,11 @@ namespace SR.ModelImpl.Model
             {
                 UserContext.DbOperations.Delete(_dbWorkout);
             }
+        }
+
+        public object GetDbObject()
+        {
+            return _dbWorkout;
         }
 
         private DbWorkout _dbWorkout;

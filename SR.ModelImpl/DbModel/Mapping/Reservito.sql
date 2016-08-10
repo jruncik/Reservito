@@ -50,11 +50,8 @@ CREATE TABLE public.workouts (
 WITH (oids = false);
 
 CREATE TABLE public.workouts_to_user (
-  id UUID NOT NULL,
   fk_workout UUID NOT NULL,
   fk_user UUID NOT NULL,
-
-  CONSTRAINT id_workouts_to_user_pkey PRIMARY KEY (id),
 
   CONSTRAINT fk_workout_coonstrain FOREIGN KEY (fk_workout)
     REFERENCES public.workouts(id)

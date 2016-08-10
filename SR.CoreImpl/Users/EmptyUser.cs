@@ -69,5 +69,11 @@ namespace SR.CoreImpl.Users
         public void Delete()
         {
         }
+
+        public object GetDbObject()
+        {
+            return null;
+        }
+
     }
 }

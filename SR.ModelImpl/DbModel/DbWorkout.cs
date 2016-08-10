@@ -11,7 +11,7 @@ namespace SR.ModelImpl.DbModel
         public virtual int Capacity { get; set; }
         public virtual int Price { get; set; }
 
-        // public virtual IList<DbUser> Cliens { get; }
+        public virtual IList<DbUser> Cliens { get; set; }
 
         public DbWorkout()
         {
@@ -20,7 +20,7 @@ namespace SR.ModelImpl.DbModel
             Capacity = 0;
             Price = 0;
 
-            // Cliens = new List<DbUser>();
+            Cliens = new List<DbUser>();
         }
 
         public DbWorkout(DbWorkout other)
@@ -30,13 +30,11 @@ namespace SR.ModelImpl.DbModel
             Capacity = other.Capacity;
             Price = other.Price;
 
-            /*
             Cliens = new List<DbUser>(other.Cliens.Count);
             foreach (DbUser otherClient in other.Cliens)
             {
                 Cliens.Add((DbUser)otherClient.Clone());
             }
-            */
         }
 
         public virtual object Clone()

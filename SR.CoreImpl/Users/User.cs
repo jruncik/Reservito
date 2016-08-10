@@ -1,4 +1,5 @@
 ﻿using System;
+
 using SR.Core;
 using SR.Core.Context;
 using SR.Core.Users;
@@ -119,6 +120,11 @@ namespace SR.CoreImpl.Users
             {
                 AppliactionContext.DbOperations.Delete(_dbUser);
             }
+        }
+
+        public object GetDbObject()
+        {
+            return _dbUser;
         }
 
         private readonly DbUser _dbUser;

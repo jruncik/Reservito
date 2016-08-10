@@ -5,18 +5,19 @@
                    namespace="SR.ModelImpl.DbModel">
 
   <class name="DbWorkout" table="workouts">
+      
     <id name="Id" column="id">
       <generator class="guid" />
     </id>
+
     <property name="Time" column="time" not-null="true"/>
     <property name="Capacity" column="capacity" not-null="true"/>
     <property name="Price" column="price" not-null="true"/>
-
-<!--
+      
     <bag name="Cliens" table="workouts_to_user" inverse="false" cascade="all">
-          <key><column name="fk_workout" not-null="true"/></key>
-          <many-to-many class="DbUser" column="fk_user"/>
-      </bag>
--->
+      <key><column name="fk_workout" not-null="true"/></key>
+      <many-to-many class="DbUser" column="fk_user"/>
+    </bag>
+
   </class>
 </hibernate-mapping>
