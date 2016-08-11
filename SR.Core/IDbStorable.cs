@@ -8,6 +8,6 @@ namespace SR.Core
 
         void Delete();
 
-        object GetDbObject();
+        T GetDbObject<T>() where T : class;
     }
 }

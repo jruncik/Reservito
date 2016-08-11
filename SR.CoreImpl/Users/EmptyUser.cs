@@ -70,9 +70,9 @@ namespace SR.CoreImpl.Users
         {
         }
 
-        public object GetDbObject()
+        public T GetDbObject<T>() where T : class
         {
-            return null;
+            return (T)(object)null;
         }
 
     }

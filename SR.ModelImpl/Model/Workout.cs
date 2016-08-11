@@ -51,11 +51,7 @@ namespace SR.ModelImpl.Model
             if (!_clients.Contains(clientToAdd))
             {
                 _clients.Add(clientToAdd);
-
-                if (clientToAdd.GetDbObject() is DbUser)
-                {
-                    _dbWorkout.Cliens.Add((DbUser)clientToAdd.GetDbObject());
-                }
+                _dbWorkout.Cliens.Add(clientToAdd.GetDbObject<DbUser>());
             }
         }
 
@@ -64,10 +60,7 @@ namespace SR.ModelImpl.Model
             if (_clients.Contains(clientToRemove))
             {
                 _clients.Remove(clientToRemove);
-                if (clientToRemove.GetDbObject() is DbUser)
-                {
-                    _dbWorkout.Cliens.Remove((DbUser)clientToRemove.GetDbObject());
-                }
+                _dbWorkout.Cliens.Remove(clientToRemove.GetDbObject<DbUser>());
             }
         }
 
@@ -111,9 +104,9 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        public object GetDbObject()
+        public T GetDbObject<T>() where T : class
         {
-            return _dbWorkout;
+            return (T)(object)_dbWorkout;
         }
 
         private DbWorkout _dbWorkout;

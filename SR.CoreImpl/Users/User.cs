@@ -122,9 +122,9 @@ namespace SR.CoreImpl.Users
             }
         }
 
-        public object GetDbObject()
+        public T GetDbObject<T>() where T : class
         {
-            return _dbUser;
+            return (T)(object)_dbUser;
         }
 
         private readonly DbUser _dbUser;
