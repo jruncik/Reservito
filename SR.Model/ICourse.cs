@@ -14,13 +14,16 @@ namespace SR.Model
 
         IUser Coach { get; set; }
 
-        IWorkoutInfo WorkoutInfo { get; }
+        int Price { get; set; }
+
+        int Capacity { get; set; }
+
+        int Length { get; set; }
 
         IEnumerable<IWorkout> Workouts { get; }
 
-        void AddClient(IWorkout workoutToAdd);
+        void AddWorkout(IWorkout workoutToAdd);
 
-        void RemoveClient(IWorkout workoutToRemove);
-
+        void RemoveWorkout(IWorkout workoutToRemove);
     }
 }

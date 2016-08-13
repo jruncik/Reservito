@@ -7,10 +7,16 @@ namespace SR.ModelImpl.Model
 {
     public class WorkoutInfo : IWorkoutInfo
     {
-        public WorkoutInfo()
+        public WorkoutInfo() :
+            this(new DbWorkoutInfo())
         {
-            _dbWorkoutInfo = new DbWorkoutInfo();
         }
+
+        internal WorkoutInfo(DbWorkoutInfo dbWorkoutInfo)
+        {
+            _dbWorkoutInfo = dbWorkoutInfo;
+        }
+
 
         public Guid Id
         {
@@ -28,6 +34,12 @@ namespace SR.ModelImpl.Model
         {
             get { return _dbWorkoutInfo.Price; }
             set { _dbWorkoutInfo.Price = value; }
+        }
+
+        public int Length
+        {
+            get { return _dbWorkoutInfo.Length; }
+            set { _dbWorkoutInfo.Length = value; }
         }
 
         public void Save()

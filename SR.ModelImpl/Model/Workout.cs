@@ -11,12 +11,18 @@ namespace SR.ModelImpl.Model
 {
     public class Workout : IWorkout
     {
-        public Workout(ICourse ownerCourse)
+
+        public Workout(ICourse ownerCourse) :
+            this(ownerCourse, new DbWorkout())
+        {
+        }
+
+        public Workout(ICourse ownerCourse, DbWorkout dbWorkout)
         {
             _ownerCourse = ownerCourse;
+            _dbWorkout = dbWorkout;
 
-            _dbWorkout = new DbWorkout();
-            _clients = new List<IUser>();
+            _clients = CreateClientsFromDbUsers(_dbWorkout.Cliens);
         }
 
         public Guid Id
@@ -40,7 +46,7 @@ namespace SR.ModelImpl.Model
                     return _workoutInfo;
                 }
 
-                return _ownerCourse.WorkoutInfo;
+                return ((Course)_ownerCourse).WorkoutInfo;
             }
 
             set
@@ -96,19 +102,7 @@ namespace SR.ModelImpl.Model
 
                 _dbWorkout.Time = loadedWorkout.Time;
                 _dbWorkout.WorkoutInfo = loadedWorkout.WorkoutInfo;
-
-                _clients.Clear();
-                foreach (DbUser dbClient in _dbWorkout.Cliens)
-                {
-                    IUser client = AppliactionContext.UserManagement.TryFindUserById(dbClient.Id);
-                    if (client == null)
-                    {
-                        AppliactionContext.Log.Critical(this, $"Client '{dbClient.FirstName}', '{dbClient.LastName}', '{dbClient.Id} wasn't found in AppliactionContext.UserManagement!");
-                        continue;
-                    }
-
-                    _clients.Add(client);
-                }
+                _clients = CreateClientsFromDbUsers(_dbWorkout.Cliens);
             }
         }
 
@@ -125,10 +119,33 @@ namespace SR.ModelImpl.Model
             return (T)(object)_dbWorkout;
         }
 
+        private List<IUser> CreateClientsFromDbUsers(IList<DbUser> dbClients)
+        {
+            if (dbClients == null)
+            {
+                return new List<IUser>(0);
+            }
+
+            List<IUser> clients = new List<IUser>(dbClients.Count);
+            foreach (DbUser dbClient in dbClients)
+            {
+                IUser client = AppliactionContext.UserManagement.TryFindUserById(dbClient.Id);
+                if (client == null)
+                {
+                    AppliactionContext.Log.Critical(this, $"Client '{dbClient.FirstName}', '{dbClient.LastName}', '{dbClient.Id} wasn't found in AppliactionContext.UserManagement!");
+                    continue;
+                }
+
+                clients.Add(client);
+            }
+
+            return clients;
+        }
+
         private readonly ICourse _ownerCourse;
         private readonly DbWorkout _dbWorkout;
 
-        private IWorkoutInfo _workoutInfo;
         private IList<IUser> _clients;
+        private IWorkoutInfo _workoutInfo;
     }
 }

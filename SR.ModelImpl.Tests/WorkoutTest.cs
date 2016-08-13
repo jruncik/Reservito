@@ -13,31 +13,40 @@ namespace SR.ModelImpl.Tests
 {
     [TestFixture]
     public class WorkoutTest
-    {
+   { 
         [Test]
         public void CreateWorkout()
         {
-            ICourse course = new Course();
+            ICourse course = new Course(_coach);
+            course.Name = "Dupeme s Oldou";
+            course.Price = 27;
+            course.Capacity = 16;
+            course.Length = 90;
 
-            IWorkoutInfo customWorkoutInfo = new WorkoutInfo();
-            customWorkoutInfo.Price = 27;
-            customWorkoutInfo.Capacity = 16;
-
-            customWorkoutInfo.Save();
+            IWorkoutInfo courseWorkoutInfo = new WorkoutInfo();
+            courseWorkoutInfo.Price = 123;
+            courseWorkoutInfo.Capacity = 5;
+            courseWorkoutInfo.Save();
 
             IWorkout workout = new Workout(course);
 
             workout.Time = new DateTime(2016, 10, 27);
-            workout.WorkoutInfo = customWorkoutInfo;
+            workout.WorkoutInfo = courseWorkoutInfo;
 
             workout.AddClient(_user1);
             workout.AddClient(_user2);
 
             workout.Save();
             workout.Load();
-            workout.Delete();
 
-            customWorkoutInfo.Delete();
+            course.AddWorkout(workout);
+
+            course.Save();
+            course.Load();
+
+            workout.Delete();
+            courseWorkoutInfo.Delete();
+            course.Delete();
         }
 
         #region Tests Initialization
@@ -48,6 +57,8 @@ namespace SR.ModelImpl.Tests
             AppliactionContext.Autentication.LogIn(DbUsers.MASTER_USERNAME, DbUsers.MASTER_PASSWORD);
 
             IUserManagement userManagement = AppliactionContext.UserManagement;
+
+            _coach = userManagement.CreateNewUser(COACH_USERNAME, COACH_PASSWORD, COACH_FIRSTNAME, COACH_LASTNAME, COACH_EMAIL, COACH_PHONE_NUMBER);
             _user1 = userManagement.CreateNewUser(USERNAME1, PASSWORD1, FIRSTNAME1, LASTNAME1, EMAIL1, PHONE_NUMBER1);
             _user2 = userManagement.CreateNewUser(USERNAME2, PASSWORD2, FIRSTNAME2, LASTNAME2, EMAIL2, PHONE_NUMBER2);
         }
@@ -55,6 +66,7 @@ namespace SR.ModelImpl.Tests
         [TearDown]
         public void TestCleanup()
         {
+            _coach.Delete();
             _user1.Delete();
             _user2.Delete();
 
@@ -73,6 +85,14 @@ namespace SR.ModelImpl.Tests
         }
 
         #endregion
+
+        private IUser _coach;
+        private const string COACH_USERNAME = "Coach";
+        private const string COACH_PASSWORD = "coach";
+        private const string COACH_FIRSTNAME = "Oldrich";
+        private const string COACH_LASTNAME = "Pantani";
+        private const string COACH_EMAIL = "Oldrich.Pantani@Email.fr";
+        private const string COACH_PHONE_NUMBER = "+420 111 111 111";
 
         private IUser _user1;
         private const string USERNAME1      = "Username1";

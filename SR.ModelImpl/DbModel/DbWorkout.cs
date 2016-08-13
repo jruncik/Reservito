@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using SR.Core;
 
 namespace SR.ModelImpl.DbModel
 {
-    public class DbWorkout : ICloneable
+    public class DbWorkout : IDbCloneable
     {
         public virtual Guid Id { get; set; }
 
@@ -27,21 +28,13 @@ namespace SR.ModelImpl.DbModel
             Id = other.Id;
             Time = other.Time;
 
-            if (other.WorkoutInfo != null)
-            {
-                WorkoutInfo = (DbWorkoutInfo)other.WorkoutInfo.Clone();
-            }
-
-            Cliens = new List<DbUser>(other.Cliens.Count);
-            foreach (DbUser otherClient in other.Cliens)
-            {
-                Cliens.Add((DbUser)otherClient.Clone());
-            }
+            WorkoutInfo = CloneHelper.SafeClone<DbWorkoutInfo>(other.WorkoutInfo);
+            Cliens = CloneHelper.SafeCloneList<DbUser>(other.Cliens);
         }
 
-        public virtual object Clone()
+        public virtual T Clone<T>() where T : class
         {
-            return new DbWorkout(this);
+            return (T)(object)(new DbWorkout(this));
         }
     }
 }

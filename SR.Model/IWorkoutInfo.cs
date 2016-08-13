@@ -7,5 +7,7 @@ namespace SR.Model
         int Price { get; set; }
 
         int Capacity { get; set; }
+
+        int Length { get; set; }
     }
 }

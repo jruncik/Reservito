@@ -4,13 +4,13 @@
                    assembly="SR.ModelImpl"
                    namespace="SR.ModelImpl.DbModel">
 
-  <class name="DbWorkoutInfo" table="workout_info">
-    <id name="Id" column="id">
-      <generator class="guid" />
-    </id>
+    <class name="DbWorkoutInfo" table="workout_info">
+        <id name="Id" column="id">
+            <generator class="guid" />
+        </id>
 
-    <property name="Capacity" column="capacity" not-null="true"/>
-    <property name="Price" column="price" not-null="true"/>
+        <property name="Capacity" column="capacity" not-null="true"/>
+        <property name="Price" column="price" not-null="true"/>
 
-  </class>
+    </class>
 </hibernate-mapping>

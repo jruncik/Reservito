@@ -59,6 +59,7 @@
     <Compile Include="DbAccess\DbOperationsLongTimeSession.cs" />
     <Compile Include="DbAccess\DbOperationsShortTimeSession.cs" />
     <Compile Include="DbAccess\DbOperationsFactory.cs" />
+    <Compile Include="DbModel\CloneHelper.cs" />
     <Compile Include="DbModel\DbCourse.cs" />
     <Compile Include="DbModel\DbRights.cs" />
     <Compile Include="DbModel\DbUser.cs" />
@@ -105,6 +106,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DbModel\Mapping\DbWorkoutInfo.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DbModel\Mapping\DbCourse.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="DbModel\Mapping\Reservito.sql" />

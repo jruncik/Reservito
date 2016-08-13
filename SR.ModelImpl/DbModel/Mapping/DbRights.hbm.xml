@@ -4,11 +4,11 @@
                    assembly="SR.ModelImpl"
                    namespace="SR.ModelImpl.DbModel">
 
-  <class name="DbRights" table="Rights">
-    <id name="Id" column="id">
-      <generator class="guid" />
-    </id>
-    <property name="FkUser" column="fk_user" not-null="true" />
-    <property name="Rights" column="rights"/>
-   </class>
+    <class name="DbRights" table="Rights">
+        <id name="Id" column="id">
+            <generator class="guid" />
+        </id>
+        <property name="FkUser" column="fk_user" not-null="true" />
+        <property name="Rights" column="rights"/>
+    </class>
 </hibernate-mapping>

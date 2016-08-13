@@ -1,8 +1,9 @@
 ﻿using System;
+using SR.Core;
 
 namespace SR.ModelImpl.DbModel
 {
-    public class DbUser : ICloneable
+    public class DbUser : IDbCloneable
     {
         public virtual Guid Id { get; set; }
 
@@ -40,9 +41,9 @@ namespace SR.ModelImpl.DbModel
             Active = other.Active;
         }
 
-        public virtual object Clone()
+        public virtual T Clone<T>() where T : class
         {
-            return new DbUser(this);
+            return (T)(object)(new DbUser(this));
         }
     }
 }

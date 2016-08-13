@@ -36,7 +36,7 @@ namespace SR.ModelImpl.DbAccess
             }
         }
 
-        public T Load<T>(Guid id) where T : ICloneable
+        public T Load<T>(Guid id) where T : class, IDbCloneable
         {
             using (ISession session = _sessionFactory.OpenSession())
             {
@@ -45,7 +45,7 @@ namespace SR.ModelImpl.DbAccess
                     try
                     {
                         // Clone it, in other case object form session is returned. Session is closed at the end of using...
-                        return (T)(session.Load<T>(id)).Clone();
+                        return session.Load<T>(id).Clone<T>();
                     }
                     catch (Exception ex)
                     {

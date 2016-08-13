@@ -4,16 +4,16 @@
                    assembly="SR.ModelImpl"
                    namespace="SR.ModelImpl.DbModel">
 
-  <class name="DbUser" table="users">
-    <id name="Id" column="id">
-      <generator class="guid" />
-    </id>
-    <property name="Username" column="username" not-null="true" />
-    <property name="Password" column="password" not-null="true" />
-    <property name="FirstName" column="firstname" not-null="true" />
-    <property name="LastName" column="lastname" />
-    <property name="PhoneNumber" column="phonenumber" />
-    <property name="Email" column="email" />
-    <property name="Active" column="active" />
-  </class>
+    <class name="DbUser" table="users">
+        <id name="Id" column="id">
+            <generator class="guid" />
+        </id>
+        <property name="Username" column="username" not-null="true" />
+        <property name="Password" column="password" not-null="true" />
+        <property name="FirstName" column="firstname" not-null="true" />
+        <property name="LastName" column="lastname" />
+        <property name="PhoneNumber" column="phonenumber" />
+        <property name="Email" column="email" />
+        <property name="Active" column="active" />
+    </class>
 </hibernate-mapping>

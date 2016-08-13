@@ -1,80 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using SR.Core.Context;
 using SR.Core.Users;
 using SR.Model;
+using SR.ModelImpl.DbModel;
 
 namespace SR.ModelImpl.Model
 {
     public class Course : ICourse
     {
-        public Course()
+        public Course(IUser coach)
         {
-            _workoutInfo = new WorkoutInfo();
+            _coach = coach;
+
+            _workouts = new List<IWorkout>();
+            _dbCourse = new DbCourse(_coach.GetDbObject<DbUser>());
+
+            _workoutInfo = new WorkoutInfo(_dbCourse.WorkoutInfo);
         }
 
         public Guid Id
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return _dbCourse.Id; }
+            set { _dbCourse.Id = value; }
         }
 
         public string Name
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return _dbCourse.Name; }
+            set { _dbCourse.Name = value; }
         }
 
         public IUser Coach
         {
-            get { throw new NotImplementedException(); }
+            get { return _coach; }
             set { throw new NotImplementedException(); }
         }
 
-        public IWorkoutInfo WorkoutInfo
+        public int Capacity
         {
-            get { return _workoutInfo; }
+            get { return _workoutInfo.Capacity; }
+            set { _workoutInfo.Capacity = value; }
         }
 
-        IEnumerable<IWorkout> Workouts
+        public int Price
         {
-            get
+            get { return _workoutInfo.Price; }
+            set { _workoutInfo.Price = value; }
+        }
+
+        public int Length
+        {
+            get { return _workoutInfo.Length; }
+            set { _workoutInfo.Length = value; }
+        }
+
+        public IEnumerable<IWorkout> Workouts
+        {
+             get { return _workouts.Select(c => c); }
+        }
+
+        public void AddWorkout(IWorkout workoutToAdd)
+        {
+            if (!_workouts.Contains(workoutToAdd))
             {
-                throw new NotImplementedException();
+                _workouts.Add(workoutToAdd);
+                _dbCourse.Workouts.Add(workoutToAdd.GetDbObject<DbWorkout>());
             }
         }
 
-        IEnumerable<IWorkout> ICourse.Workouts
+        public void RemoveWorkout(IWorkout workoutToRemove)
         {
-            get
+            if (!_workouts.Contains(workoutToRemove))
             {
-                throw new NotImplementedException();
+                _workouts.Remove(workoutToRemove);
+                _dbCourse.Workouts.Remove(workoutToRemove.GetDbObject<DbWorkout>());
             }
-        }
-
-        public void AddClient(IWorkout workoutToAdd)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveClient(IWorkout workoutToRemove)
-        {
-            throw new NotImplementedException();
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            using (AppliactionContext.Log.LogTime(this, $"Save course '{Id}', Name: {Name}, Coach: {Coach}."))
+            {
+                foreach (IWorkout workout in _workouts)
+                {
+                    workout.Save();
+                }
+                _workoutInfo.Save();
+
+                UserContext.DbOperations.Save(_dbCourse);
+            }
         }
 
         public void Load()
         {
-            throw new NotImplementedException();
+            using (AppliactionContext.Log.LogTime(this, $"Reload course '{Id}', Name: {Name}, Coach: {Coach}."))
+            {
+                DbCourse loadedCourse = UserContext.DbOperations.Load<DbCourse>(_dbCourse.Id);
+
+                _dbCourse.Name = loadedCourse.Name;
+
+                _dbCourse.WorkoutInfo = loadedCourse.WorkoutInfo;
+                _workoutInfo = new WorkoutInfo(_dbCourse.WorkoutInfo);
+
+                _workouts = CreateWorkoutsFromDbWorkouts(_dbCourse.Workouts);
+            }
         }
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            using (AppliactionContext.Log.LogTime(this, $"Delete course '{Id}', Name: {Name}, Coach: {Coach}."))
+            {
+                foreach (IWorkout workout in _workouts)
+                {
+                    workout.Delete();
+                }
+
+                _workoutInfo.Delete();
+
+                UserContext.DbOperations.Delete(_dbCourse);
+            }
         }
 
         public T GetDbObject<T>() where T : class
@@ -82,6 +128,32 @@ namespace SR.ModelImpl.Model
             throw new NotImplementedException();
         }
 
+        internal IWorkoutInfo WorkoutInfo
+        {
+            get { return _workoutInfo; }
+        }
+
+        private List<IWorkout> CreateWorkoutsFromDbWorkouts(IList<DbWorkout> dbWorkouts)
+        {
+            if (dbWorkouts == null)
+            {
+                return new List<IWorkout>(0);
+            }
+
+            List<IWorkout> workouts = new List<IWorkout>(dbWorkouts.Count);
+            foreach (DbWorkout dbWorkout in dbWorkouts)
+            {
+                Workout workout = new Workout(this, dbWorkout);
+                workouts.Add(workout);
+            }
+
+            return workouts;
+        }
+
+        private readonly DbCourse _dbCourse;
+
+        private IList<IWorkout> _workouts;
         private IWorkoutInfo _workoutInfo;
+        private IUser _coach;
     }
 }

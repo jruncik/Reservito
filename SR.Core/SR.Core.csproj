@@ -55,6 +55,7 @@
     <Compile Include="DbAccess\QueryParam.cs" />
     <Compile Include="DbAccess\QueryParams.cs" />
     <Compile Include="IAutentication.cs" />
+    <Compile Include="IDbCloneable.cs" />
     <Compile Include="ICoreFactory.cs" />
     <Compile Include="DbAccess\IDbOperations.cs" />
     <Compile Include="IDbStorable.cs" />

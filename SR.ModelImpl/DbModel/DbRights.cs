@@ -1,8 +1,10 @@
 ﻿using System;
 
+using SR.Core;
+
 namespace SR.ModelImpl.DbModel
 {
-    public class DbRights : ICloneable
+    public class DbRights : IDbCloneable
     {
         public virtual Guid Id { get; set; }
         public virtual Guid FkUser { get; set; }
@@ -22,9 +24,9 @@ namespace SR.ModelImpl.DbModel
             Rights = other.Rights;
         }
 
-        public virtual object Clone()
+        public virtual T Clone<T>() where T : class
         {
-            return new DbRights(this);
+            return (T)(object)(new DbRights(this));
         }
 
     }
