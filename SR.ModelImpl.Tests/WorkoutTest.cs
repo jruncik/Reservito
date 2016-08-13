@@ -17,11 +17,18 @@ namespace SR.ModelImpl.Tests
         [Test]
         public void CreateWorkout()
         {
-            IWorkout workout = new Workout();
+            ICourse course = new Course();
+
+            IWorkoutInfo customWorkoutInfo = new WorkoutInfo();
+            customWorkoutInfo.Price = 27;
+            customWorkoutInfo.Capacity = 16;
+
+            customWorkoutInfo.Save();
+
+            IWorkout workout = new Workout(course);
 
             workout.Time = new DateTime(2016, 10, 27);
-            workout.Capacity = 20;
-            workout.Price = 150;
+            workout.WorkoutInfo = customWorkoutInfo;
 
             workout.AddClient(_user1);
             workout.AddClient(_user2);
@@ -29,6 +36,8 @@ namespace SR.ModelImpl.Tests
             workout.Save();
             workout.Load();
             workout.Delete();
+
+            customWorkoutInfo.Delete();
         }
 
         #region Tests Initialization
@@ -80,6 +89,5 @@ namespace SR.ModelImpl.Tests
         private const string LASTNAME2 = "LastName2";
         private const string EMAIL2 = "User2@Email.em";
         private const string PHONE_NUMBER2 = "+420 222 222 222";
-
     }
 }

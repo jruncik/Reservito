@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS public.users CASCADE;
 DROP TABLE IF EXISTS public.rights CASCADE;
 DROP TABLE IF EXISTS public.workouts CASCADE;
 DROP TABLE IF EXISTS public.workouts_to_user CASCADE;
+DROP TABLE IF EXISTS public.workout_info;
 COMMIT;
 
 BEGIN;
@@ -42,8 +43,7 @@ WITH (oids = false);
 CREATE TABLE public.workouts (
   id UUID NOT NULL,
   time TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-  capacity INTEGER DEFAULT 0 NOT NULL,
-  price INTEGER DEFAULT 0 NOT NULL,
+  fk_workout_info UUID,
 
   CONSTRAINT id_workouts_pkey PRIMARY KEY (id)
 )
@@ -52,6 +52,8 @@ WITH (oids = false);
 CREATE TABLE public.workouts_to_user (
   fk_workout UUID NOT NULL,
   fk_user UUID NOT NULL,
+
+  CONSTRAINT workouts_to_user_pkey PRIMARY KEY (fk_workout, fk_user),
 
   CONSTRAINT fk_workout_coonstrain FOREIGN KEY (fk_workout)
     REFERENCES public.workouts(id)
@@ -64,6 +66,15 @@ CREATE TABLE public.workouts_to_user (
     ON DELETE CASCADE
     ON UPDATE CASCADE
     NOT DEFERRABLE
+)
+WITH (oids = false);
+
+CREATE TABLE public.workout_info
+(
+  id uuid NOT NULL,
+  price integer NOT NULL,
+  capacity integer NOT NULL,
+  CONSTRAINT id_workout_info_pkey PRIMARY KEY (id)
 )
 WITH (oids = false);
 

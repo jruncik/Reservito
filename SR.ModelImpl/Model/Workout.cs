@@ -11,8 +11,10 @@ namespace SR.ModelImpl.Model
 {
     public class Workout : IWorkout
     {
-        public Workout()
+        public Workout(ICourse ownerCourse)
         {
+            _ownerCourse = ownerCourse;
+
             _dbWorkout = new DbWorkout();
             _clients = new List<IUser>();
         }
@@ -29,16 +31,30 @@ namespace SR.ModelImpl.Model
             set { _dbWorkout.Time = value; }
         }
 
-        public int Capacity
+        public IWorkoutInfo WorkoutInfo
         {
-            get { return _dbWorkout.Capacity; }
-            set { _dbWorkout.Capacity = value; }
-        }
+            get
+            {
+                if (_workoutInfo != null)
+                {
+                    return _workoutInfo;
+                }
 
-        public int Price
-        {
-            get { return _dbWorkout.Price; }
-            set { _dbWorkout.Price = value; }
+                return _ownerCourse.WorkoutInfo;
+            }
+
+            set
+            {
+                _workoutInfo = value;
+                if (_workoutInfo != null)
+                {
+                    _dbWorkout.WorkoutInfo = _workoutInfo.GetDbObject<DbWorkoutInfo>();
+                }
+                else
+                {
+                    _dbWorkout.WorkoutInfo = null;
+                }
+            }
         }
 
         IEnumerable<IUser> IWorkout.Cliens
@@ -64,7 +80,6 @@ namespace SR.ModelImpl.Model
             }
         }
 
-
         public void Save()
         {
             using (AppliactionContext.Log.LogTime(this, $"Save workout '{Id}'."))
@@ -80,6 +95,7 @@ namespace SR.ModelImpl.Model
                 DbWorkout loadedWorkout = UserContext.DbOperations.Load<DbWorkout>(_dbWorkout.Id);
 
                 _dbWorkout.Time = loadedWorkout.Time;
+                _dbWorkout.WorkoutInfo = loadedWorkout.WorkoutInfo;
 
                 _clients.Clear();
                 foreach (DbUser dbClient in _dbWorkout.Cliens)
@@ -109,7 +125,10 @@ namespace SR.ModelImpl.Model
             return (T)(object)_dbWorkout;
         }
 
-        private DbWorkout _dbWorkout;
+        private readonly ICourse _ownerCourse;
+        private readonly DbWorkout _dbWorkout;
+
+        private IWorkoutInfo _workoutInfo;
         private IList<IUser> _clients;
     }
 }

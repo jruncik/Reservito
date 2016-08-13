@@ -63,8 +63,10 @@
     <Compile Include="DbModel\DbRights.cs" />
     <Compile Include="DbModel\DbUser.cs" />
     <Compile Include="DbModel\DbWorkout.cs" />
+    <Compile Include="DbModel\DbWorkoutInfo.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\Workout.cs" />
+    <Compile Include="Model\WorkoutInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -100,6 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DbModel\Mapping\DbWorkout.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DbModel\Mapping\DbWorkoutInfo.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="DbModel\Mapping\Reservito.sql" />

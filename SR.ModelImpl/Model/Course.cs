@@ -6,48 +6,37 @@ using SR.Model;
 
 namespace SR.ModelImpl.Model
 {
-    internal class Course : ICourse
+    public class Course : ICourse
     {
-        public Guid Id
+        public Course()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            _workoutInfo = new WorkoutInfo();
         }
 
-        public IUser Coach
+        public Guid Id
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
         public string Name
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
-        public IList<IWorkout> Workouts
+        public IUser Coach
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public IWorkoutInfo WorkoutInfo
+        {
+            get { return _workoutInfo; }
+        }
+
+        IEnumerable<IWorkout> Workouts
         {
             get
             {
@@ -55,30 +44,44 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        public int Capacity
+        IEnumerable<IWorkout> ICourse.Workouts
         {
             get
             {
                 throw new NotImplementedException();
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
 
-        public int Price
+        public void AddClient(IWorkout workoutToAdd)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
+
+        public void RemoveClient(IWorkout workoutToRemove)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetDbObject<T>() where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        private IWorkoutInfo _workoutInfo;
     }
 }

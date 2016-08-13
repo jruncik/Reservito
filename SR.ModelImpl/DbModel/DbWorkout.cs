@@ -8,8 +8,8 @@ namespace SR.ModelImpl.DbModel
         public virtual Guid Id { get; set; }
 
         public virtual DateTime Time { get; set; }
-        public virtual int Capacity { get; set; }
-        public virtual int Price { get; set; }
+
+        public virtual DbWorkoutInfo WorkoutInfo { get; set; }
 
         public virtual IList<DbUser> Cliens { get; set; }
 
@@ -17,8 +17,7 @@ namespace SR.ModelImpl.DbModel
         {
             Id = Guid.Empty;
             Time = DateTime.MinValue;
-            Capacity = 0;
-            Price = 0;
+            WorkoutInfo = null;
 
             Cliens = new List<DbUser>();
         }
@@ -27,8 +26,11 @@ namespace SR.ModelImpl.DbModel
         {
             Id = other.Id;
             Time = other.Time;
-            Capacity = other.Capacity;
-            Price = other.Price;
+
+            if (other.WorkoutInfo != null)
+            {
+                WorkoutInfo = (DbWorkoutInfo)other.WorkoutInfo.Clone();
+            }
 
             Cliens = new List<DbUser>(other.Cliens.Count);
             foreach (DbUser otherClient in other.Cliens)

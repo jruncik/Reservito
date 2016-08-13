@@ -12,9 +12,7 @@ namespace SR.Model
 
         DateTime Time { get; set; }
 
-        int Capacity { get; set; }
-
-        int Price { get; set; }
+        IWorkoutInfo WorkoutInfo { get; set; }
 
         IEnumerable<IUser> Cliens { get; }
 
