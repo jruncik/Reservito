@@ -22,7 +22,7 @@ namespace SR.Model
 
         IEnumerable<IWorkout> Workouts { get; }
 
-        void AddWorkout(IWorkout workoutToAdd);
+        IWorkout AddNewWorkout();
 
         void RemoveWorkout(IWorkout workoutToRemove);
     }

@@ -9,15 +9,14 @@ using System.Linq;
 
 namespace SR.ModelImpl.Model
 {
-    public class Workout : IWorkout
+    internal class Workout : IWorkout
     {
-
-        public Workout(ICourse ownerCourse) :
+        internal Workout(ICourse ownerCourse) :
             this(ownerCourse, new DbWorkout())
         {
         }
 
-        public Workout(ICourse ownerCourse, DbWorkout dbWorkout)
+        internal Workout(ICourse ownerCourse, DbWorkout dbWorkout)
         {
             _ownerCourse = ownerCourse;
             _dbWorkout = dbWorkout;
@@ -37,35 +36,51 @@ namespace SR.ModelImpl.Model
             set { _dbWorkout.Time = value; }
         }
 
-        public IWorkoutInfo WorkoutInfo
+        IEnumerable<IUser> IWorkout.Cliens
         {
-            get
-            {
-                if (_workoutInfo != null)
-                {
-                    return _workoutInfo;
-                }
+            get { return _clients.Select(c => c); }
+        }
 
-                return ((Course)_ownerCourse).WorkoutInfo;
-            }
+        public int Price
+        {
+            get { return SafeWorkoutInfo.Price; }
 
             set
             {
-                _workoutInfo = value;
-                if (_workoutInfo != null)
+                if (Price != value)
                 {
-                    _dbWorkout.WorkoutInfo = _workoutInfo.GetDbObject<DbWorkoutInfo>();
-                }
-                else
-                {
-                    _dbWorkout.WorkoutInfo = null;
+                    EnsureWorkoutInfo();
+                    _workoutInfo.Price = value;
                 }
             }
         }
 
-        IEnumerable<IUser> IWorkout.Cliens
+        public int Capacity
         {
-            get { return _clients.Select(c => c); }
+            get { return SafeWorkoutInfo.Capacity; }
+
+            set
+            {
+                if (Capacity != value)
+                {
+                    EnsureWorkoutInfo();
+                    _workoutInfo.Capacity = value;
+                }
+            }
+        }
+
+        public int Length
+        {
+            get { return SafeWorkoutInfo.Length; }
+
+            set
+            {
+                if (Length != value)
+                {
+                    EnsureWorkoutInfo();
+                    _workoutInfo.Length = value;
+                }
+            }
         }
 
         public void AddClient(IUser clientToAdd)
@@ -101,7 +116,10 @@ namespace SR.ModelImpl.Model
                 DbWorkout loadedWorkout = UserContext.DbOperations.Load<DbWorkout>(_dbWorkout.Id);
 
                 _dbWorkout.Time = loadedWorkout.Time;
+
                 _dbWorkout.WorkoutInfo = loadedWorkout.WorkoutInfo;
+                _workoutInfo = CreateWorkoutInfo(loadedWorkout.WorkoutInfo);
+
                 _clients = CreateClientsFromDbUsers(_dbWorkout.Cliens);
             }
         }
@@ -110,13 +128,47 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete workout '{Id}'."))
             {
+                _clients.Clear();
+                _dbWorkout.Cliens.Clear(); // Don't delete Clients. It is regular user.
+
                 UserContext.DbOperations.Delete(_dbWorkout);
+
+                //if (_workoutInfo != null)
+                //{
+                //    _workoutInfo.Delete();
+                //}
             }
         }
 
         public T GetDbObject<T>() where T : class
         {
             return (T)(object)_dbWorkout;
+        }
+
+        private IWorkoutInfo ParentWorkoutInfo
+        {
+            get { return ((Course)_ownerCourse).WorkoutInfo; }
+        }
+
+        private IWorkoutInfo SafeWorkoutInfo
+        {
+            get
+            {
+                if (_workoutInfo == null)
+                {
+                    return ParentWorkoutInfo;
+                }
+
+                return _workoutInfo;
+            }
+        }
+
+        private void EnsureWorkoutInfo()
+        {
+            if (_workoutInfo == null)
+            {
+                _workoutInfo = new WorkoutInfo();
+            }
         }
 
         private List<IUser> CreateClientsFromDbUsers(IList<DbUser> dbClients)
@@ -140,6 +192,16 @@ namespace SR.ModelImpl.Model
             }
 
             return clients;
+        }
+
+        private IWorkoutInfo CreateWorkoutInfo(DbWorkoutInfo dbWorkoutInfo)
+        {
+            if (dbWorkoutInfo == null)
+            {
+                return null;
+            }
+
+            return new WorkoutInfo(dbWorkoutInfo);
         }
 
         private readonly ICourse _ownerCourse;

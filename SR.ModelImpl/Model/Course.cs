@@ -8,9 +8,9 @@ using SR.ModelImpl.DbModel;
 
 namespace SR.ModelImpl.Model
 {
-    public class Course : ICourse
+    internal class Course : ICourse
     {
-        public Course(IUser coach)
+        internal Course(IUser coach)
         {
             _coach = coach;
 
@@ -61,7 +61,14 @@ namespace SR.ModelImpl.Model
              get { return _workouts.Select(c => c); }
         }
 
-        public void AddWorkout(IWorkout workoutToAdd)
+        public IWorkout AddNewWorkout()
+        {
+            IWorkout newWorkout = new Workout(this);
+            AddWorkout(newWorkout);
+            return newWorkout;
+        }
+
+        private void AddWorkout(IWorkout workoutToAdd)
         {
             if (!_workouts.Contains(workoutToAdd))
             {
@@ -112,14 +119,20 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
+                _coach = null;
+                _dbCourse.Coach = null; // Don't delete Coach. It is regular user.
+
                 foreach (IWorkout workout in _workouts)
                 {
                     workout.Delete();
                 }
 
-                _workoutInfo.Delete();
+                _dbCourse.Workouts.Clear();
+                _workouts.Clear();
 
                 UserContext.DbOperations.Delete(_dbCourse);
+
+                //_workoutInfo.Delete();
             }
         }
 

@@ -4,7 +4,6 @@ using SR.Core.Context;
 using SR.Core.UserManagement;
 using SR.Core.Users;
 using SR.Model;
-using SR.ModelImpl.Model;
 using SR.Reservito;
 using SR.TestsCore;
 using System;
@@ -17,21 +16,23 @@ namespace SR.ModelImpl.Tests
         [Test]
         public void CreateWorkout()
         {
-            ICourse course = new Course(_coach);
+            IModelObjectFactory modelFactory = AppliactionContext.GetModekObjectFactory<IModelObjectFactory>();
+
+            ICourse course = modelFactory.CreateCourse(_coach);
             course.Name = "Dupeme s Oldou";
             course.Price = 27;
             course.Capacity = 16;
             course.Length = 90;
 
-            IWorkoutInfo courseWorkoutInfo = new WorkoutInfo();
-            courseWorkoutInfo.Price = 123;
-            courseWorkoutInfo.Capacity = 5;
-            courseWorkoutInfo.Save();
+            //IWorkoutInfo courseWorkoutInfo = modelFactory.CreateWorkoutInfo();
+            //courseWorkoutInfo.Price = 123;
+            //courseWorkoutInfo.Capacity = 5;
+            //courseWorkoutInfo.Save();
 
-            IWorkout workout = new Workout(course);
+            IWorkout workout = course.AddNewWorkout();
 
             workout.Time = new DateTime(2016, 10, 27);
-            workout.WorkoutInfo = courseWorkoutInfo;
+            // workout.WorkoutInfo = courseWorkoutInfo;
 
             workout.AddClient(_user1);
             workout.AddClient(_user2);
@@ -39,13 +40,9 @@ namespace SR.ModelImpl.Tests
             workout.Save();
             workout.Load();
 
-            course.AddWorkout(workout);
-
             course.Save();
             course.Load();
 
-            workout.Delete();
-            courseWorkoutInfo.Delete();
             course.Delete();
         }
 

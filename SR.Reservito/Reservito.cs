@@ -8,7 +8,9 @@ using SR.Core.Log;
 using SR.Core.UserManagement;
 using SR.CoreImpl;
 using SR.CoreImpl.Log;
+using SR.Model;
 using SR.ModelImpl.DbAccess;
+using SR.ModelImpl.Model;
 
 namespace SR.Reservito
 {
@@ -31,8 +33,9 @@ namespace SR.Reservito
 
             ICoreFactory coreFactory = new CoreFactory();
             IDbOperationsFactory dbOperationsFactory = new DbOperationsFactory(sessionFactory);
-            
-            new AppliactionContext(log, coreFactory, dbOperationsFactory);
+            IModelObjectFactory modelObjectFactory = new ModelObjectFactory();
+
+            new AppliactionContext(log, coreFactory, dbOperationsFactory, modelObjectFactory);
         }
 
         private static void InitUserContext()

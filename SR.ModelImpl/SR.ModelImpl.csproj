@@ -66,6 +66,7 @@
     <Compile Include="DbModel\DbWorkout.cs" />
     <Compile Include="DbModel\DbWorkoutInfo.cs" />
     <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\ModelObjectFactory.cs" />
     <Compile Include="Model\Workout.cs" />
     <Compile Include="Model\WorkoutInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

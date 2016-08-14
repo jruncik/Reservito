@@ -31,11 +31,17 @@ namespace SR.Core.Context
             get { return Instance._userManagement; }
         }
 
-        public AppliactionContext(ILog log, ICoreFactory coreFactory, IDbOperationsFactory dbOperationsFactory)
+        public static T GetModekObjectFactory<T>()
+        {
+            return (T)Instance._objectModelFactory;
+        }
+
+        public AppliactionContext(ILog log, ICoreFactory coreFactory, IDbOperationsFactory dbOperationsFactory, object objectModelFactory)
         {
             _log = log;
             _coreFactory = coreFactory;
             _dbOperationsFactory = dbOperationsFactory;
+            _objectModelFactory = objectModelFactory;
 
             _dbOperations = _dbOperationsFactory.CreateDbOperations();
 
@@ -49,6 +55,7 @@ namespace SR.Core.Context
         private readonly IDbOperationsFactory _dbOperationsFactory;
         private readonly IAutentication _autentication;
         private readonly IUserManagement _userManagement;
+        private readonly object _objectModelFactory;
 
     }
 }

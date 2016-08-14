@@ -5,9 +5,9 @@ using System;
 
 namespace SR.ModelImpl.Model
 {
-    public class WorkoutInfo : IWorkoutInfo
+    internal class WorkoutInfo : IWorkoutInfo
     {
-        public WorkoutInfo() :
+        internal WorkoutInfo() :
             this(new DbWorkoutInfo())
         {
         }
