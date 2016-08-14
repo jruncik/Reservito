@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using SR.Core;
+using SR.Model;
+using SR.ModelImpl.Model;
 
 namespace SR.ModelImpl.DbModel
 {
@@ -10,7 +12,7 @@ namespace SR.ModelImpl.DbModel
 
         public virtual DateTime Time { get; set; }
 
-        public virtual DbWorkoutInfo WorkoutInfo { get; set; }
+        public virtual WorkoutInfo WorkoutInfo { get; set; }
 
         public virtual IList<DbUser> Cliens { get; set; }
 
@@ -28,7 +30,7 @@ namespace SR.ModelImpl.DbModel
             Id = other.Id;
             Time = other.Time;
 
-            WorkoutInfo = CloneHelper.SafeClone<DbWorkoutInfo>(other.WorkoutInfo);
+            WorkoutInfo = CloneHelper.SafeClone<WorkoutInfo>(other.WorkoutInfo);
             Cliens = CloneHelper.SafeCloneList<DbUser>(other.Cliens);
         }
 

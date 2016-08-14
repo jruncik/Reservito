@@ -12,7 +12,7 @@
 
         <property name="Name" column="name" not-null="true"/>
         <many-to-one name="Coach" class="DbUser" column="fk_coach" fetch="join" />
-        <many-to-one name="WorkoutInfo" class="DbWorkoutInfo" column="fk_workout_info" fetch="join" />
+        <many-to-one name="WorkoutInfo" class="SR.ModelImpl.Model.WorkoutInfo" column="fk_workout_info" fetch="join" cascade="all"/>
         
         <bag name="Workouts" table="courses_and_workouts" inverse="false" cascade="all">
             <key>

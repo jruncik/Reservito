@@ -37,9 +37,6 @@ namespace SR.ModelImpl.Tests
             workout.AddClient(_user1);
             workout.AddClient(_user2);
 
-            workout.Save();
-            workout.Load();
-
             course.Save();
             course.Load();
 
@@ -73,15 +70,18 @@ namespace SR.ModelImpl.Tests
         [OneTimeSetUpAttribute]
         public void AllTestsInit()
         {
-            new ReservitoApp();
+            _app = new ReservitoApp();
         }
 
         [OneTimeTearDownAttribute]
         public void AllTestCleanup()
         {
+            _app = null;
         }
 
         #endregion
+
+        private ReservitoApp _app;
 
         private IUser _coach;
         private const string COACH_USERNAME = "Coach";

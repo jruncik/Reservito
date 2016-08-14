@@ -1,76 +1,76 @@
-﻿using SR.Core.Context;
+﻿using System;
+
+using SR.Core;
+using SR.Core.Context;
+
 using SR.Model;
 using SR.ModelImpl.DbModel;
-using System;
 
 namespace SR.ModelImpl.Model
 {
-    internal class WorkoutInfo : IWorkoutInfo
+    public class WorkoutInfo : IWorkoutInfo, IDbCloneable
     {
-        internal WorkoutInfo() :
-            this(new DbWorkoutInfo())
+        public WorkoutInfo()
         {
+            Id = Guid.Empty;
+            Capacity = 0;
+            Price = 0;
+            Length = 0;
         }
 
-        internal WorkoutInfo(DbWorkoutInfo dbWorkoutInfo)
+        public WorkoutInfo(WorkoutInfo other)
         {
-            _dbWorkoutInfo = dbWorkoutInfo;
+            Id = other.Id;
+            Capacity = other.Capacity;
+            Price = other.Price;
+            Length = other.Length;
         }
 
+        public virtual Guid Id { get; set; }
 
-        public Guid Id
-        {
-            get { return _dbWorkoutInfo.Id; }
-            set { _dbWorkoutInfo.Id = value; }
-        }
+        public virtual int Capacity { get; set; }
 
-        public int Capacity
-        {
-            get { return _dbWorkoutInfo.Capacity; }
-            set { _dbWorkoutInfo.Capacity = value; }
-        }
+        public virtual int Price { get; set; }
 
-        public int Price
-        {
-            get { return _dbWorkoutInfo.Price; }
-            set { _dbWorkoutInfo.Price = value; }
-        }
+        public virtual int Length { get; set; }
 
-        public int Length
-        {
-            get { return _dbWorkoutInfo.Length; }
-            set { _dbWorkoutInfo.Length = value; }
-        }
-
-        public void Save()
+        public virtual void Save()
         {
             using (AppliactionContext.Log.LogTime(this, $"Save workout info '{Id}', Price: {Price}, Capacity: {Capacity}."))
             {
-                UserContext.DbOperations.Save(_dbWorkoutInfo);
+                UserContext.DbOperations.Save(this);
             }
         }
 
-        public void Load()
+        public virtual void Load()
         {
             using (AppliactionContext.Log.LogTime(this, $"Reload workout info '{Id}', Price: {Price}, Capacity: {Capacity}."))
             {
-                DbWorkoutInfo loadedWorkout = UserContext.DbOperations.Load<DbWorkoutInfo>(_dbWorkoutInfo.Id);
+                WorkoutInfo loadedWorkout = UserContext.DbOperations.Load<WorkoutInfo>(Id);
+
+                Id = loadedWorkout.Id;
+                Capacity = loadedWorkout.Capacity;
+                Price = loadedWorkout.Price;
+                Length = loadedWorkout.Length;
             }
         }
 
-        public void Delete()
+        public virtual void Delete()
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete workout info '{Id}'."))
             {
-                UserContext.DbOperations.Delete(_dbWorkoutInfo);
+                UserContext.DbOperations.Delete(this);
             }
         }
 
-        public T GetDbObject<T>() where T : class
+        public virtual T GetDbObject<T>() where T : class
         {
-            return (T)(object)_dbWorkoutInfo;
+            return (T)(object)this;
         }
 
-        private DbWorkoutInfo _dbWorkoutInfo;
+        public virtual T Clone<T>() where T : class
+        {
+            return (T)(object)(new WorkoutInfo(this));
+        }
     }
 }

@@ -128,15 +128,7 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete workout '{Id}'."))
             {
-                _clients.Clear();
-                _dbWorkout.Cliens.Clear(); // Don't delete Clients. It is regular user.
-
                 UserContext.DbOperations.Delete(_dbWorkout);
-
-                //if (_workoutInfo != null)
-                //{
-                //    _workoutInfo.Delete();
-                //}
             }
         }
 
@@ -194,14 +186,14 @@ namespace SR.ModelImpl.Model
             return clients;
         }
 
-        private IWorkoutInfo CreateWorkoutInfo(DbWorkoutInfo dbWorkoutInfo)
+        private IWorkoutInfo CreateWorkoutInfo(WorkoutInfo workoutInfo)
         {
-            if (dbWorkoutInfo == null)
+            if (workoutInfo == null)
             {
                 return null;
             }
 
-            return new WorkoutInfo(dbWorkoutInfo);
+            return new WorkoutInfo(workoutInfo);
         }
 
         private readonly ICourse _ownerCourse;

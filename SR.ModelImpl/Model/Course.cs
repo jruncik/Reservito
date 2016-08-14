@@ -17,7 +17,7 @@ namespace SR.ModelImpl.Model
             _workouts = new List<IWorkout>();
             _dbCourse = new DbCourse(_coach.GetDbObject<DbUser>());
 
-            _workoutInfo = new WorkoutInfo(_dbCourse.WorkoutInfo);
+            _workoutInfo = new WorkoutInfo();
         }
 
         public Guid Id
@@ -90,12 +90,6 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Save course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
-                foreach (IWorkout workout in _workouts)
-                {
-                    workout.Save();
-                }
-                _workoutInfo.Save();
-
                 UserContext.DbOperations.Save(_dbCourse);
             }
         }
@@ -119,20 +113,7 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
-                _coach = null;
-                _dbCourse.Coach = null; // Don't delete Coach. It is regular user.
-
-                foreach (IWorkout workout in _workouts)
-                {
-                    workout.Delete();
-                }
-
-                _dbCourse.Workouts.Clear();
-                _workouts.Clear();
-
                 UserContext.DbOperations.Delete(_dbCourse);
-
-                //_workoutInfo.Delete();
             }
         }
 
