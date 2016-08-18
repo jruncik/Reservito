@@ -15,7 +15,7 @@ namespace SR.ModelImpl.Model
             _coach = coach;
 
             _workouts = new List<IWorkout>();
-            _dbCourse = new DbCourse(_coach.GetDbObject<DbUser>());
+            _dbCourse = new DbCourse(_coach.GetDbObject<User>());
 
             _workoutInfo = new WorkoutInfo();
         }

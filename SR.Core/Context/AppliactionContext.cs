@@ -31,7 +31,7 @@ namespace SR.Core.Context
             get { return Instance._userManagement; }
         }
 
-        public static T GetModekObjectFactory<T>()
+        public static T GetModelObjectFactory<T>()
         {
             return (T)Instance._objectModelFactory;
         }

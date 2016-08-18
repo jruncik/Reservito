@@ -14,7 +14,7 @@ namespace SR.ModelImpl.DbModel
 
         public virtual WorkoutInfo WorkoutInfo { get; set; }
 
-        public virtual IList<DbUser> Cliens { get; set; }
+        public virtual IList<User> Cliens { get; set; }
 
         public DbWorkout()
         {
@@ -22,7 +22,7 @@ namespace SR.ModelImpl.DbModel
             Time = DateTime.MinValue;
             WorkoutInfo = null;
 
-            Cliens = new List<DbUser>();
+            Cliens = new List<User>();
         }
 
         public DbWorkout(DbWorkout other)
@@ -31,7 +31,7 @@ namespace SR.ModelImpl.DbModel
             Time = other.Time;
 
             WorkoutInfo = CloneHelper.SafeClone<WorkoutInfo>(other.WorkoutInfo);
-            Cliens = CloneHelper.SafeCloneList<DbUser>(other.Cliens);
+            Cliens = CloneHelper.SafeCloneList<User>(other.Cliens);
         }
 
         public virtual T Clone<T>() where T : class

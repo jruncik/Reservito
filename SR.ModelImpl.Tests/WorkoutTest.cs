@@ -16,7 +16,7 @@ namespace SR.ModelImpl.Tests
         [Test]
         public void CreateWorkout()
         {
-            IModelObjectFactory modelFactory = AppliactionContext.GetModekObjectFactory<IModelObjectFactory>();
+            IDbModelObjectFactory modelFactory = AppliactionContext.GetModelObjectFactory<IDbModelObjectFactory>();
 
             ICourse course = modelFactory.CreateCourse(_coach);
             course.Name = "Dupeme s Oldou";

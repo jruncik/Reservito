@@ -10,7 +10,8 @@ using SR.Core.UserManagement;
 using SR.Core.Users;
 using SR.CoreImpl.Users;
 
-using SR.ModelImpl.DbModel;
+using SR.Model;
+using SR.ModelImpl.Model;
 
 namespace SR.CoreImpl.UserManagement
 {
@@ -51,10 +52,10 @@ namespace SR.CoreImpl.UserManagement
                 throw new UserManagementException(Resources.PasswordCantBeEmpty);
             }
 
-            string query = "from " + typeof(DbUser) + " u where u.Username = :Username";
+            string query = "from " + typeof(User) + " u where u.Username = :Username";
             QueryParams queryParams = new QueryParams(new QueryParam("Username", username));
 
-            IList<DbUser> users = AppliactionContext.DbOperations.QueryDb<DbUser>(query, queryParams);
+            IList<User> users = AppliactionContext.DbOperations.QueryDb<User>(query, queryParams);
 
             if (users.Count != 0)
             {
@@ -62,7 +63,8 @@ namespace SR.CoreImpl.UserManagement
                 throw new UserManagementException(String.Format(Resources.UserAlreadyExists, username));
             }
 
-            IUser newUser = new User(username, password, firstName, lastName, email, phoneNumber);
+            IDbModelObjectFactory modelFactory = AppliactionContext.GetModelObjectFactory<IDbModelObjectFactory>();
+            IUser newUser = modelFactory.CreateUser(username, password, firstName, lastName, email, phoneNumber);
             AppliactionContext.Log.Debug(this, $"User with username '{username}' was created.");
             newUser.Save();
 
@@ -94,26 +96,32 @@ namespace SR.CoreImpl.UserManagement
 
         public void DeleteUser(IUser userToDelete)
         {
-            CheckRights();
-
-            if (!userToDelete.IsBuiltIn)
+            lock (_lock)
             {
-                ((User)userToDelete).Delete();
-                _users.Remove(userToDelete);
+                CheckRights();
+
+                if (!userToDelete.IsBuiltIn)
+                {
+                    _users.Remove(userToDelete);
+                    userToDelete.Delete();
+                }
             }
         }
 
         public void DeleteAllUsers()
         {
-            IEnumerable<IUser> usersToDelete = _users.Where(user => !user.IsBuiltIn);
-
-            foreach (IUser userToDelete in usersToDelete)
+            lock (_lock)
             {
-                ((User)userToDelete).Delete();
-            }
+                IEnumerable<IUser> usersToDelete = _users.Where(user => !user.IsBuiltIn);
 
-            _users.Clear();
-            InitializeBuildInUsers();
+                foreach (IUser userToDelete in usersToDelete)
+                {
+                    userToDelete.Delete();
+                }
+
+                _users.Clear();
+                InitializeBuildInUsers();
+            }
         }
 
         public IList<IUser> Users
@@ -130,14 +138,17 @@ namespace SR.CoreImpl.UserManagement
 
         private void ReadAllUsers()
         {
-            using (AppliactionContext.Log.LogTime(this, "Reading all users"))
+            lock (_lock)
             {
-                IList<DbUser> dbUsers = AppliactionContext.DbOperations.GetAll<DbUser>();
-                foreach (DbUser dbUser in dbUsers)
+                using (AppliactionContext.Log.LogTime(this, "Reading all users"))
                 {
-                    IUser newUser = new User(dbUser);
-                    _users.Add(newUser);
-                    AppliactionContext.Log.Debug(this, String.Format("User '{0}' read from DB.", newUser.Username));
+                    IList<User> users = AppliactionContext.DbOperations.GetAll<User>();
+                    foreach (User user in users)
+                    {
+                        IUser newUser = new User(user);
+                        _users.Add(newUser);
+                        AppliactionContext.Log.Debug(this, String.Format("User '{0}' read from DB.", newUser.Username));
+                    }
                 }
             }
         }
@@ -160,9 +171,11 @@ namespace SR.CoreImpl.UserManagement
             }
         }
 
+        private readonly object _lock = new object();
         private readonly IList<IUser> _users = new List<IUser>();
         private readonly IUser MasterUser = new MasterUser();
         private readonly IUser GuestUser = new GuestUser();
         private readonly IUser EmptyUser = new EmptyUser();
+
     }
 }

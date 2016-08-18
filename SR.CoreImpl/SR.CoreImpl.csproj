@@ -67,7 +67,6 @@
     <Compile Include="Users\EmptyUser.cs" />
     <Compile Include="Users\GuestUser.cs" />
     <Compile Include="Users\MasterUser.cs" />
-    <Compile Include="Users\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -84,6 +83,10 @@
     <ProjectReference Include="..\SR.ModelImpl\SR.ModelImpl.csproj">
       <Project>{98ae7034-9395-41b8-b57c-46b6eb33937c}</Project>
       <Name>SR.ModelImpl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SR.Model\SR.Model.csproj">
+      <Project>{C09B8B6F-DF47-469C-A19C-8C2731F6C2C8}</Project>
+      <Name>SR.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

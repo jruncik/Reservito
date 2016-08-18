@@ -62,11 +62,11 @@
     <Compile Include="DbModel\CloneHelper.cs" />
     <Compile Include="DbModel\DbCourse.cs" />
     <Compile Include="DbModel\DbRights.cs" />
-    <Compile Include="DbModel\DbUser.cs" />
     <Compile Include="DbModel\DbWorkout.cs" />
     <Compile Include="DbModel\DbWorkoutInfo.cs" />
     <Compile Include="Model\Course.cs" />
-    <Compile Include="Model\ModelObjectFactory.cs" />
+    <Compile Include="Model\DbModelObjectFactory.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Model\Workout.cs" />
     <Compile Include="Model\WorkoutInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,7 +83,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DbModel\Mapping\DbUser.hbm.xml" />
+    <EmbeddedResource Include="DbModel\Mapping\User.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DbModel\Mapping\DbRights.hbm.xml" />
@@ -106,7 +106,7 @@
     <EmbeddedResource Include="DbModel\Mapping\DbWorkout.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DbModel\Mapping\DbWorkoutInfo.hbm.xml">
+    <EmbeddedResource Include="DbModel\Mapping\WorkoutInfo.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DbModel\Mapping\DbCourse.hbm.xml">

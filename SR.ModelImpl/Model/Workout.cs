@@ -88,7 +88,7 @@ namespace SR.ModelImpl.Model
             if (!_clients.Contains(clientToAdd))
             {
                 _clients.Add(clientToAdd);
-                _dbWorkout.Cliens.Add(clientToAdd.GetDbObject<DbUser>());
+                _dbWorkout.Cliens.Add(clientToAdd.GetDbObject<User>());
             }
         }
 
@@ -97,7 +97,7 @@ namespace SR.ModelImpl.Model
             if (_clients.Contains(clientToRemove))
             {
                 _clients.Remove(clientToRemove);
-                _dbWorkout.Cliens.Remove(clientToRemove.GetDbObject<DbUser>());
+                _dbWorkout.Cliens.Remove(clientToRemove.GetDbObject<User>());
             }
         }
 
@@ -163,7 +163,7 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        private List<IUser> CreateClientsFromDbUsers(IList<DbUser> dbClients)
+        private List<IUser> CreateClientsFromDbUsers(IList<User> dbClients)
         {
             if (dbClients == null)
             {
@@ -171,7 +171,7 @@ namespace SR.ModelImpl.Model
             }
 
             List<IUser> clients = new List<IUser>(dbClients.Count);
-            foreach (DbUser dbClient in dbClients)
+            foreach (User dbClient in dbClients)
             {
                 IUser client = AppliactionContext.UserManagement.TryFindUserById(dbClient.Id);
                 if (client == null)

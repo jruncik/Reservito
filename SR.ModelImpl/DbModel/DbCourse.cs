@@ -13,18 +13,18 @@ namespace SR.ModelImpl.DbModel
 
         public virtual string Name { get; set; }
 
-        public virtual DbUser Coach { get; set; }
+        public virtual User Coach { get; set; }
 
         public virtual WorkoutInfo WorkoutInfo { get; set; }
 
         public virtual IList<DbWorkout> Workouts { get; set; }
 
         public DbCourse() :
-            this((DbUser)null)
+            this((User)null)
         {
         }
 
-        public DbCourse(DbUser coach)
+        public DbCourse(User coach)
         {
             Coach = coach;
             Name = String.Empty;
@@ -36,7 +36,7 @@ namespace SR.ModelImpl.DbModel
         {
             Id = other.Id;
             Name = other.Name;
-            Coach = other.Coach.Clone<DbUser>();
+            Coach = other.Coach.Clone<User>();
             WorkoutInfo = other.WorkoutInfo.Clone<WorkoutInfo>();
 
             Workouts = CloneHelper.SafeCloneList<DbWorkout>(other.Workouts);

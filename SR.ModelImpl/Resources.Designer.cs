@@ -95,5 +95,14 @@ namespace SR.ModelImpl {
                 return ResourceManager.GetString("PaperFormatNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username or password is empty..
+        /// </summary>
+        internal static string UsernameOrPasswordIsEmpty {
+            get {
+                return ResourceManager.GetString("UsernameOrPasswordIsEmpty", resourceCulture);
+            }
+        }
     }
 }

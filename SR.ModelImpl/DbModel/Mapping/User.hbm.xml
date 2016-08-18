@@ -2,9 +2,9 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="SR.ModelImpl"
-                   namespace="SR.ModelImpl.DbModel">
+                   namespace="SR.ModelImpl.Model">
 
-    <class name="DbUser" table="users">
+    <class name="User" table="users">
         <id name="Id" column="id">
             <generator class="guid" />
         </id>

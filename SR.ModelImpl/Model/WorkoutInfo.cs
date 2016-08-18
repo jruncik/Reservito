@@ -4,7 +4,6 @@ using SR.Core;
 using SR.Core.Context;
 
 using SR.Model;
-using SR.ModelImpl.DbModel;
 
 namespace SR.ModelImpl.Model
 {

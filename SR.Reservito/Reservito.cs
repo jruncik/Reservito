@@ -33,7 +33,7 @@ namespace SR.Reservito
 
             ICoreFactory coreFactory = new CoreFactory();
             IDbOperationsFactory dbOperationsFactory = new DbOperationsFactory(sessionFactory);
-            IModelObjectFactory modelObjectFactory = new ModelObjectFactory();
+            IDbModelObjectFactory modelObjectFactory = new DbModelObjectFactory();
 
             new AppliactionContext(log, coreFactory, dbOperationsFactory, modelObjectFactory);
         }
