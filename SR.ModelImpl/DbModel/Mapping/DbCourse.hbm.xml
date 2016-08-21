@@ -18,7 +18,7 @@
             <key>
                 <column name="fk_course" not-null="true"/>
             </key>
-            <many-to-many class="DbWorkout" column="fk_workout"/>
+            <many-to-many class="SR.ModelImpl.Model.Workout" column="fk_workout"/>
         </bag>
 
     </class>

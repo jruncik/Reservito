@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using SR.Core;
-using SR.Model;
 using SR.ModelImpl.Model;
 
 namespace SR.ModelImpl.DbModel
@@ -17,7 +16,7 @@ namespace SR.ModelImpl.DbModel
 
         public virtual WorkoutInfo WorkoutInfo { get; set; }
 
-        public virtual IList<DbWorkout> Workouts { get; set; }
+        public virtual IList<Workout> Workouts { get; set; }
 
         public DbCourse() :
             this((User)null)
@@ -29,7 +28,7 @@ namespace SR.ModelImpl.DbModel
             Coach = coach;
             Name = String.Empty;
             WorkoutInfo = new WorkoutInfo();
-            Workouts = new List<DbWorkout>();
+            Workouts = new List<Workout>();
         }
 
         public DbCourse(DbCourse other)
@@ -39,7 +38,7 @@ namespace SR.ModelImpl.DbModel
             Coach = other.Coach.Clone<User>();
             WorkoutInfo = other.WorkoutInfo.Clone<WorkoutInfo>();
 
-            Workouts = CloneHelper.SafeCloneList<DbWorkout>(other.Workouts);
+            Workouts = CloneHelper.SafeCloneList<Workout>(other.Workouts);
         }
 
         public virtual T Clone<T>() where T : class

@@ -62,7 +62,6 @@
     <Compile Include="DbModel\CloneHelper.cs" />
     <Compile Include="DbModel\DbCourse.cs" />
     <Compile Include="DbModel\DbRights.cs" />
-    <Compile Include="DbModel\DbWorkout.cs" />
     <Compile Include="DbModel\DbWorkoutInfo.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\DbModelObjectFactory.cs" />
@@ -103,7 +102,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DbModel\Mapping\DbWorkout.hbm.xml">
+    <EmbeddedResource Include="DbModel\Mapping\Workout.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DbModel\Mapping\WorkoutInfo.hbm.xml">

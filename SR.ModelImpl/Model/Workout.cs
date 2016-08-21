@@ -1,47 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using SR.Core.Users;
 using SR.Model;
 using SR.ModelImpl.DbModel;
 using SR.Core.Context;
-using System.Linq;
+using SR.Core;
 
 namespace SR.ModelImpl.Model
 {
-    internal class Workout : IWorkout
+    public class Workout : IWorkout, IDbCloneable
     {
-        internal Workout(ICourse ownerCourse) :
-            this(ownerCourse, new DbWorkout())
+        protected Workout()
         {
+            _ownerCourse = null;
+            _clients = new List<IUser>();
+            _clientsIds = new List<Guid>();
+
+            Id = Guid.Empty;
+            Time = DateTime.MinValue;
+            _workoutInfo = null;
         }
 
-        internal Workout(ICourse ownerCourse, DbWorkout dbWorkout)
+        internal Workout(ICourse ownerCourse)
         {
             _ownerCourse = ownerCourse;
-            _dbWorkout = dbWorkout;
-
-            _clients = CreateClientsFromDbUsers(_dbWorkout.Cliens);
+            _clients = new List<IUser>();
+            _clientsIds = new List<Guid>();
         }
 
-        public Guid Id
+        internal Workout(Workout other)
         {
-            get { return _dbWorkout.Id; }
-            set { _dbWorkout.Id = value; }
+            _ownerCourse = other._ownerCourse;
+            Id = other.Id;
+            Time = other.Time;
+
+            WorkoutInfo = CloneHelper.SafeClone<WorkoutInfo>(other.WorkoutInfo);
         }
 
-        public DateTime Time
+        public virtual Guid Id { get; set; }
+
+        public virtual DateTime Time { get; set; }
+
+        public virtual WorkoutInfo WorkoutInfo { get; set; }
+
+        public virtual IEnumerable<IUser> Cliens
         {
-            get { return _dbWorkout.Time; }
-            set { _dbWorkout.Time = value; }
+            get { return _clients.ToList(); }
         }
 
-        IEnumerable<IUser> IWorkout.Cliens
-        {
-            get { return _clients.Select(c => c); }
-        }
-
-        public int Price
+        public virtual int Price
         {
             get { return SafeWorkoutInfo.Price; }
 
@@ -55,7 +64,7 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        public int Capacity
+        public virtual int Capacity
         {
             get { return SafeWorkoutInfo.Capacity; }
 
@@ -69,7 +78,7 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        public int Length
+        public virtual int Length
         {
             get { return SafeWorkoutInfo.Length; }
 
@@ -83,58 +92,63 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        public void AddClient(IUser clientToAdd)
+        public virtual void AddClient(IUser clientToAdd)
         {
             if (!_clients.Contains(clientToAdd))
             {
                 _clients.Add(clientToAdd);
-                _dbWorkout.Cliens.Add(clientToAdd.GetDbObject<User>());
+                _clientsIds.Add(clientToAdd.Id);
             }
         }
 
-        public void RemoveClient(IUser clientToRemove)
+        public virtual void RemoveClient(IUser clientToRemove)
         {
             if (_clients.Contains(clientToRemove))
             {
                 _clients.Remove(clientToRemove);
-                _dbWorkout.Cliens.Remove(clientToRemove.GetDbObject<User>());
+                _clientsIds.Remove(clientToRemove.Id);
             }
         }
 
-        public void Save()
+        public virtual void Save()
         {
             using (AppliactionContext.Log.LogTime(this, $"Save workout '{Id}'."))
             {
-                UserContext.DbOperations.Save(_dbWorkout);
+                UserContext.DbOperations.Save(this);
             }
         }
 
-        public void Load()
+        public virtual void Load()
         {
             using (AppliactionContext.Log.LogTime(this, $"Reload workout '{Id}'."))
             {
-                DbWorkout loadedWorkout = UserContext.DbOperations.Load<DbWorkout>(_dbWorkout.Id);
+                Workout loadedWorkout = UserContext.DbOperations.Load<Workout>(Id);
 
-                _dbWorkout.Time = loadedWorkout.Time;
+                Time = loadedWorkout.Time;
 
-                _dbWorkout.WorkoutInfo = loadedWorkout.WorkoutInfo;
+                _clientsIds = loadedWorkout._clientsIds;
+                _clients = CreateClientsFromGuids(loadedWorkout._clientsIds);
+
                 _workoutInfo = CreateWorkoutInfo(loadedWorkout.WorkoutInfo);
-
-                _clients = CreateClientsFromDbUsers(_dbWorkout.Cliens);
             }
         }
 
-        public void Delete()
+        public virtual void Delete()
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete workout '{Id}'."))
             {
-                UserContext.DbOperations.Delete(_dbWorkout);
+                UserContext.DbOperations.Delete(this);
             }
         }
 
-        public T GetDbObject<T>() where T : class
+        public virtual T Clone<T>() where T : class
         {
-            return (T)(object)_dbWorkout;
+            return (T)(object)(new Workout(this));
+        }
+
+        public virtual T GetDbObject<T>() where T : class
+        {
+            return (T)(object)this;
         }
 
         private IWorkoutInfo ParentWorkoutInfo
@@ -155,6 +169,12 @@ namespace SR.ModelImpl.Model
             }
         }
 
+        protected virtual IList<Guid> ClientsIds
+        {
+            get { return _clientsIds; }
+            set { _clientsIds = value; }
+        }
+
         private void EnsureWorkoutInfo()
         {
             if (_workoutInfo == null)
@@ -163,20 +183,20 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        private List<IUser> CreateClientsFromDbUsers(IList<User> dbClients)
+        private List<IUser> CreateClientsFromGuids(IList<Guid> idsClients)
         {
-            if (dbClients == null)
+            if (idsClients == null)
             {
                 return new List<IUser>(0);
             }
 
-            List<IUser> clients = new List<IUser>(dbClients.Count);
-            foreach (User dbClient in dbClients)
+            List<IUser> clients = new List<IUser>(idsClients.Count);
+            foreach (Guid idClient in idsClients)
             {
-                IUser client = AppliactionContext.UserManagement.TryFindUserById(dbClient.Id);
+                IUser client = AppliactionContext.UserManagement.TryFindUserById(idClient);
                 if (client == null)
                 {
-                    AppliactionContext.Log.Critical(this, $"Client '{dbClient.FirstName}', '{dbClient.LastName}', '{dbClient.Id} wasn't found in AppliactionContext.UserManagement!");
+                    AppliactionContext.Log.Critical(this, $"Client '{idClient}' wasn't found in AppliactionContext.UserManagement!");
                     continue;
                 }
 
@@ -197,9 +217,10 @@ namespace SR.ModelImpl.Model
         }
 
         private readonly ICourse _ownerCourse;
-        private readonly DbWorkout _dbWorkout;
 
         private IList<IUser> _clients;
+        private IList<Guid> _clientsIds;
+
         private IWorkoutInfo _workoutInfo;
     }
 }

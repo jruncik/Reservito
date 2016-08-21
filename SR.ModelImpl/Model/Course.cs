@@ -73,7 +73,6 @@ namespace SR.ModelImpl.Model
             if (!_workouts.Contains(workoutToAdd))
             {
                 _workouts.Add(workoutToAdd);
-                _dbCourse.Workouts.Add(workoutToAdd.GetDbObject<DbWorkout>());
             }
         }
 
@@ -82,7 +81,6 @@ namespace SR.ModelImpl.Model
             if (!_workouts.Contains(workoutToRemove))
             {
                 _workouts.Remove(workoutToRemove);
-                _dbCourse.Workouts.Remove(workoutToRemove.GetDbObject<DbWorkout>());
             }
         }
 
@@ -127,7 +125,7 @@ namespace SR.ModelImpl.Model
             get { return _workoutInfo; }
         }
 
-        private List<IWorkout> CreateWorkoutsFromDbWorkouts(IList<DbWorkout> dbWorkouts)
+        private List<IWorkout> CreateWorkoutsFromDbWorkouts(IList<Workout> dbWorkouts)
         {
             if (dbWorkouts == null)
             {
@@ -135,9 +133,9 @@ namespace SR.ModelImpl.Model
             }
 
             List<IWorkout> workouts = new List<IWorkout>(dbWorkouts.Count);
-            foreach (DbWorkout dbWorkout in dbWorkouts)
+            foreach (Workout dbWorkout in dbWorkouts)
             {
-                Workout workout = new Workout(this, dbWorkout);
+                Workout workout = new Workout(this);
                 workouts.Add(workout);
             }
 
