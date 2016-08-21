@@ -17,7 +17,7 @@ namespace SR.ModelImpl.Model
             Length = 0;
         }
 
-        public WorkoutInfo(WorkoutInfo other)
+        public WorkoutInfo(IWorkoutInfo other)
         {
             Id = other.Id;
             Capacity = other.Capacity;

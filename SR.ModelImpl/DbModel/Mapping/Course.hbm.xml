@@ -2,9 +2,9 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="SR.ModelImpl"
-                   namespace="SR.ModelImpl.DbModel">
+                   namespace="SR.ModelImpl.Model">
 
-    <class name="DbCourse" table="courses">
+    <class name="Course" table="courses">
 
         <id name="Id" column="id">
             <generator class="guid" />
@@ -14,7 +14,7 @@
         <many-to-one name="Coach" class="SR.ModelImpl.Model.User" column="fk_coach" fetch="join" />
         <many-to-one name="WorkoutInfo" class="SR.ModelImpl.Model.WorkoutInfo" column="fk_workout_info" fetch="join" cascade="all"/>
         
-        <bag name="Workouts" table="courses_and_workouts" inverse="false" cascade="all">
+        <bag name="WorkoutsList" table="courses_and_workouts" inverse="false" cascade="all">
             <key>
                 <column name="fk_course" not-null="true"/>
             </key>

@@ -1,67 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SR.Core;
 using SR.Core.Context;
 using SR.Core.Users;
 using SR.Model;
-using SR.ModelImpl.DbModel;
 
 namespace SR.ModelImpl.Model
 {
-    internal class Course : ICourse
+    internal class Course : ICourse, IDbCloneable
     {
+        protected Course()
+        {
+            Coach = null;
+            Name = String.Empty;
+            _workoutInfo = new WorkoutInfo();
+            _workouts = new List<IWorkout>();
+        }
+
         internal Course(IUser coach)
         {
             _coach = coach;
-
             _workouts = new List<IWorkout>();
-            _dbCourse = new DbCourse(_coach.GetDbObject<User>());
-
             _workoutInfo = new WorkoutInfo();
         }
 
-        public Guid Id
+        internal Course(Course other)
         {
-            get { return _dbCourse.Id; }
-            set { _dbCourse.Id = value; }
+            _coach = other._coach;
+            _workouts = new List<IWorkout>();
         }
 
-        public string Name
-        {
-            get { return _dbCourse.Name; }
-            set { _dbCourse.Name = value; }
-        }
+        public virtual Guid Id { get; set; }
 
-        public IUser Coach
+        public virtual string Name { get; set; }
+
+        public virtual IUser Coach
         {
             get { return _coach; }
-            set { throw new NotImplementedException(); }
+            set { _coach = value; }
         }
 
-        public int Capacity
+        public virtual int Capacity
         {
             get { return _workoutInfo.Capacity; }
             set { _workoutInfo.Capacity = value; }
         }
 
-        public int Price
+        public virtual int Price
         {
             get { return _workoutInfo.Price; }
             set { _workoutInfo.Price = value; }
         }
 
-        public int Length
+        public virtual int Length
         {
             get { return _workoutInfo.Length; }
             set { _workoutInfo.Length = value; }
         }
 
-        public IEnumerable<IWorkout> Workouts
+        public virtual IEnumerable<IWorkout> Workouts
         {
              get { return _workouts.Select(c => c); }
         }
 
-        public IWorkout AddNewWorkout()
+        public virtual IWorkout AddNewWorkout()
         {
             IWorkout newWorkout = new Workout(this);
             AddWorkout(newWorkout);
@@ -76,7 +79,7 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        public void RemoveWorkout(IWorkout workoutToRemove)
+        public virtual void RemoveWorkout(IWorkout workoutToRemove)
         {
             if (!_workouts.Contains(workoutToRemove))
             {
@@ -84,45 +87,55 @@ namespace SR.ModelImpl.Model
             }
         }
 
-        public void Save()
+        public virtual void Save()
         {
             using (AppliactionContext.Log.LogTime(this, $"Save course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
-                UserContext.DbOperations.Save(_dbCourse);
+                UserContext.DbOperations.Save(this);
             }
         }
 
-        public void Load()
+        public virtual void Load()
         {
             using (AppliactionContext.Log.LogTime(this, $"Reload course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
-                DbCourse loadedCourse = UserContext.DbOperations.Load<DbCourse>(_dbCourse.Id);
+                Course loadedCourse = UserContext.DbOperations.Load<Course>(Id);
 
-                _dbCourse.Name = loadedCourse.Name;
+                Name = loadedCourse.Name;
+                _workoutInfo = new WorkoutInfo(loadedCourse.WorkoutInfo);
 
-                _dbCourse.WorkoutInfo = loadedCourse.WorkoutInfo;
-                _workoutInfo = new WorkoutInfo(_dbCourse.WorkoutInfo);
-
-                _workouts = CreateWorkoutsFromDbWorkouts(_dbCourse.Workouts);
+                // _workouts = CreateWorkoutsFromDbWorkouts(loadedCourse.Workouts);
             }
         }
 
-        public void Delete()
+        public virtual void Delete()
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
-                UserContext.DbOperations.Delete(_dbCourse);
+                UserContext.DbOperations.Delete(this);
             }
         }
 
-        public T GetDbObject<T>() where T : class
+        public virtual T GetDbObject<T>() where T : class
         {
-            throw new NotImplementedException();
+            return (T)(object)this;
         }
 
-        internal IWorkoutInfo WorkoutInfo
+        public virtual T Clone<T>() where T : class
+        {
+            return (T)(object)(new Course(this));
+        }
+
+        protected internal virtual IWorkoutInfo WorkoutInfo
         {
             get { return _workoutInfo; }
+            set { _workoutInfo = value; }
+        }
+
+        protected virtual IList<IWorkout> WorkoutsList
+        {
+            get { return _workouts; }
+            set { _workouts = value; }
         }
 
         private List<IWorkout> CreateWorkoutsFromDbWorkouts(IList<Workout> dbWorkouts)
@@ -141,8 +154,6 @@ namespace SR.ModelImpl.Model
 
             return workouts;
         }
-
-        private readonly DbCourse _dbCourse;
 
         private IList<IWorkout> _workouts;
         private IWorkoutInfo _workoutInfo;

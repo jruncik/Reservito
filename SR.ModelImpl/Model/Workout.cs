@@ -47,7 +47,7 @@ namespace SR.ModelImpl.Model
 
         public virtual IEnumerable<IUser> Cliens
         {
-            get { return _clients.ToList(); }
+            get { return _clients.Select(w => w); }
         }
 
         public virtual int Price
