@@ -128,15 +128,7 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete workout '{Id}'."))
             {
-                _clients.Clear();
-                _dbWorkout.Cliens.Clear(); // Don't delete Clients. It is regular user.
-
                 UserContext.DbOperations.Delete(_dbWorkout);
-
-                //if (_workoutInfo != null)
-                //{
-                //    _workoutInfo.Delete();
-                //}
             }
         }
 

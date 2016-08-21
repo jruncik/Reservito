@@ -11,6 +11,7 @@
 
         <property name="Capacity" column="capacity" not-null="true"/>
         <property name="Price" column="price" not-null="true"/>
+        <property name="Length" column="length" not-null="true"/>
 
     </class>
 </hibernate-mapping>

@@ -77,6 +77,7 @@ CREATE TABLE public.workout_info
   id uuid NOT NULL,
   price integer NOT NULL,
   capacity integer NOT NULL,
+  length integer NOT NULL,
 
   CONSTRAINT id_workout_info_pkey PRIMARY KEY (id)
 )

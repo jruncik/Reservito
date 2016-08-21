@@ -37,10 +37,17 @@ namespace SR.ModelImpl.Tests
             workout.AddClient(_user1);
             workout.AddClient(_user2);
 
-            workout.Save();
-            workout.Load();
-
             course.Save();
+            course = null;
+
+            IList<DbUser> dbUsers = AppliactionContext.DbOperations.GetAll<DbUser>();
+            foreach (DbUser dbUser in dbUsers)
+            {
+                IUser newUser = new User(dbUser);
+                _users.Add(newUser);
+                AppliactionContext.Log.Debug(this, String.Format("User '{0}' read from DB.", newUser.Username));
+            }
+
             course.Load();
 
             course.Delete();

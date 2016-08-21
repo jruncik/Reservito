@@ -11,7 +11,7 @@
         </id>
 
         <property name="Time" column="time" not-null="true"/>
-        <many-to-one name="WorkoutInfo" class="DbWorkoutInfo" column="fk_workout_info" fetch="join" />
+        <many-to-one name="WorkoutInfo" class="DbWorkoutInfo" column="fk_workout_info" fetch="join" cascade="all"/>
 
         <bag name="Cliens" table="workouts_and_users" inverse="false" cascade="none">
             <key>

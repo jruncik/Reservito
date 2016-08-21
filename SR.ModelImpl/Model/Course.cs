@@ -119,20 +119,7 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
-                _coach = null;
-                _dbCourse.Coach = null; // Don't delete Coach. It is regular user.
-
-                foreach (IWorkout workout in _workouts)
-                {
-                    workout.Delete();
-                }
-
-                _dbCourse.Workouts.Clear();
-                _workouts.Clear();
-
                 UserContext.DbOperations.Delete(_dbCourse);
-
-                //_workoutInfo.Delete();
             }
         }
 
