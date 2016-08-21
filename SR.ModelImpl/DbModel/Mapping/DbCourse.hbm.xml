@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SR.ModelImpl"
+                   namespace="SR.ModelImpl.DbModel">
+
+    <class name="DbCourse" table="courses">
+
+        <id name="Id" column="id">
+            <generator class="guid" />
+        </id>
+
+        <property name="Name" column="name" not-null="true"/>
+        <many-to-one name="Coach" class="DbUser" column="fk_coach" fetch="join" cascade="none"/>
+        <many-to-one name="WorkoutInfo" class="DbWorkoutInfo" column="fk_workout_info" fetch="join" />
+        
+        <bag name="Workouts" table="courses_and_workouts" inverse="false" cascade="all">
+            <key>
+                <column name="fk_course" not-null="true"/>
+            </key>
+            <many-to-many class="DbWorkout" column="fk_workout"/>
+        </bag>
+
+    </class>
+</hibernate-mapping>

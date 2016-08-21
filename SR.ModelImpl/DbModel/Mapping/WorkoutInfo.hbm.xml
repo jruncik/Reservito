@@ -2,16 +2,16 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="SR.ModelImpl"
-                   namespace="SR.ModelImpl.Model">
+                   namespace="SR.ModelImpl.DbModel">
 
-    <class name="WorkoutInfo" table="workout_info">
+    <class name="DbWorkoutInfo" table="workout_info">
         <id name="Id" column="id">
             <generator class="guid" />
         </id>
 
         <property name="Capacity" column="capacity" not-null="true"/>
         <property name="Price" column="price" not-null="true"/>
-        <property name="Length" column="lenght" not-null="true"/>
+        <property name="Length" column="length" not-null="true"/>
 
     </class>
 </hibernate-mapping>

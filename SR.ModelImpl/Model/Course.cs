@@ -112,7 +112,7 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete course '{Id}', Name: {Name}, Coach: {Coach}."))
             {
-                UserContext.DbOperations.Delete(this);
+                UserContext.DbOperations.Delete(_dbCourse);
             }
         }
 

@@ -2,22 +2,22 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="SR.ModelImpl"
-                   namespace="SR.ModelImpl.Model">
+                   namespace="SR.ModelImpl.DbModel">
 
-    <class name="Workout" table="workouts">
+    <class name="DbWorkout" table="workouts">
 
         <id name="Id" column="id">
             <generator class="guid" />
         </id>
 
         <property name="Time" column="time" not-null="true"/>
-        <many-to-one name="WorkoutInfo" class="SR.ModelImpl.Model.WorkoutInfo" column="fk_workout_info" fetch="join" />
+        <many-to-one name="WorkoutInfo" class="DbWorkoutInfo" column="fk_workout_info" fetch="join" cascade="all"/>
 
-        <bag name="ClientsIds" table="workouts_and_users" inverse="false" cascade="none">
+        <bag name="Cliens" table="workouts_and_users" inverse="false" cascade="none">
             <key>
                 <column name="fk_workout" not-null="true"/>
             </key>
-            <many-to-many class="User" column="fk_user"/>
+            <many-to-many class="DbUser" column="fk_user"/>
         </bag>
 
     </class>

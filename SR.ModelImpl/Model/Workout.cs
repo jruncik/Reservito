@@ -137,7 +137,7 @@ namespace SR.ModelImpl.Model
         {
             using (AppliactionContext.Log.LogTime(this, $"Delete workout '{Id}'."))
             {
-                UserContext.DbOperations.Delete(this);
+                UserContext.DbOperations.Delete(_dbWorkout);
             }
         }
 
